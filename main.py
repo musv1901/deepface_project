@@ -8,7 +8,8 @@ import io
 from io import BytesIO
 import tkinter as tk
 import customtkinter
-from PIL import Image
+from PIL import Image, ImageTk
+
 
 
 def getImage(frame):
@@ -84,15 +85,7 @@ def isPresent(face):
 
 if __name__ == "__main__":
 
-    # root = tk.Tk()
 
-    # root.geometry('1000x500')
-    # root.title('Visitor Dashboard')
-
-    # label = tk.Label(root, text='Hello Visitor!', font=('Arial', 18))
-    # label.pack(padx=20, pady=20)
-
-    # root.mainloop()
     cap = cv2.VideoCapture(0)
     while True:
         ret, frame = cap.read()
