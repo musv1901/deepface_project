@@ -3,6 +3,7 @@ from deepface import DeepFace
 import cv2
 import uuid
 
+
 def getImage():
     cap = cv2.VideoCapture(0)
 
@@ -12,10 +13,13 @@ def getImage():
         result = DeepFace.analyze(img_path=frame, enforce_detection=False)
 
         for face in result:
+            print(face)
             txt = 'Gender: ' + face.get('dominant_gender') + '\n' \
                   + 'Age: ' + str(face.get('age')) + '\n' \
                   + 'ethnicity: ' + face.get('dominant_race') + '\n' \
                   + 'Emotion: ' + face.get('dominant_emotion')
+
+            print(txt)
 
             x = face.get('region')['x']
             y = face.get('region')['y']
@@ -34,7 +38,9 @@ def getImage():
     cap.release()
     cv2.destroyAllWindows()
 
+
 def saveImage(frame):
     cv2.imwrite('Pictures\img' + str(uuid.uuid4()) + '.jpg', frame)
+
 
 getImage()
