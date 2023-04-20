@@ -1,6 +1,7 @@
 import tkinter as tk
 import json
 from PIL import ImageTk, Image
+from image2base64.converters import base64_to_rgb, rgb2base64
 
 
 class GUI:
@@ -28,7 +29,7 @@ class GUI:
         current_image += 1
         if current_image >= len(persons):
             current_image = 0
-        image = Image.frombytes(data=persons[current_image]["cropped_img_base"], decoder_name='base64')
+        image = base64_to_rgb(persons[current_image]["cropped_img_base"])
         image = image.resize((400, 400))
         photo = ImageTk.PhotoImage(image)
         image_label.configure(image=photo)
