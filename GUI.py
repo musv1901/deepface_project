@@ -18,9 +18,9 @@ with open("persons.json", "r") as file:
 persons = data['persons']
 
 # Define a function to display the next image and description
+
+
 current_image = 0
-
-
 def show_next_image():
     global current_image
     current_image += 1
