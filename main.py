@@ -13,12 +13,27 @@ from image2base64.converters import base64_to_rgb, rgb2base64
 from concurrent.futures import ThreadPoolExecutor
 
 
-def getImage(frame):
-    with ThreadPoolExecutor() as executor:
-        cv2.imshow('Picture', frame)
-        future = executor.submit(DeepFace.analyze, img_path=frame, enforce_detection=False, detector_backend='mtcnn')
-        result = future.result()
+def cameraFeed():
+    cap = cv2.VideoCapture(0)
+    while True:
+        ret, frame = cap.read()
 
+        detectedFaces = DeepFace.detectFace(img_path=frame, enforce_detection=False, detector_backend='mtcnn')
+
+        for face in detectedFaces:
+            print(face)
+
+        if cv2.waitKey(1) & 0xff == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+def getImage(frame):
+
+    cv2.imshow('Picture', frame)
+    result = DeepFace.analyze(img_path=frame, enforce_detection=False, detector_backend='mtcnn')
 
     for face in result:
         # txt = 'Gender: ' + face.get('dominant_gender') + '\n' \
