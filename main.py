@@ -3,47 +3,53 @@ import time
 from deepface import DeepFace
 import cv2
 import uuid
-import base64
+import image2base64
 import io
 from io import BytesIO
 import tkinter as tk
 import customtkinter
 from PIL import Image
+from image2base64.converters import base64_to_rgb, rgb2base64
+from concurrent.futures import ThreadPoolExecutor
 
 
 def getImage(frame):
-    result = DeepFace.analyze(img_path=frame, enforce_detection=False, detector_backend='mtcnn')
-    print(result)
+    with ThreadPoolExecutor() as executor:
+        cv2.imshow('Picture', frame)
+        future = executor.submit(DeepFace.analyze, img_path=frame, enforce_detection=False, detector_backend='mtcnn')
+        result = future.result()
+
 
     for face in result:
-        print(face)
-        txt = 'Gender: ' + face.get('dominant_gender') + '\n' \
-              + 'Age: ' + str(face.get('age')) + '\n' \
-              + 'ethnicity: ' + face.get('dominant_race') + '\n' \
-              + 'Emotion: ' + face.get('dominant_emotion')
+        # txt = 'Gender: ' + face.get('dominant_gender') + '\n' \
+        #      + 'Age: ' + str(face.get('age')) + '\n' \
+        #      + 'ethnicity: ' + face.get('dominant_race') + '\n' \
+        #      + 'Emotion: ' + face.get('dominant_emotion')
 
-        print(txt)
+        storeFace(face)
 
-        x = face.get('region')['x']
-        y = face.get('region')['y']
-        w = face.get('region')['w']
-        h = face.get('region')['h']
+        # cv2.rectangle(cropped_nd, (x, y), (x + w, y + h), (255, 0, 0), 3)
 
-        cropped_img = frame[y:y + h, x:x + w]
-        #isPresent(cropped_img)
+        # cv2.imshow('Cropped', cropped_nd)
+        # cv2.putText(cropped_nd, txt, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
+        # saveImage(frame)
 
-        _, im_arr = cv2.imencode('.jpeg', cropped_img)
-        im_bytes = im_arr.tobytes()
-        im_b64 = base64.b64encode(im_bytes)
+    # time.sleep(5)
 
+
+def storeFace(face_dict):
+
+    cropped_face = getcroppedFace(face_dict)
+
+    if not isPresent(cropped_face):
         person = {
             "firstname": "",
             "lastname": "",
-            "cropped_img_base": str(im_b64),
-            "gender": face.get('dominant_gender'),
-            "age": str(face.get('age')),
-            "ethnicity": face.get('dominant_race'),
-            "emotion": face.get('dominant_emotion')
+            "cropped_img_base": rgb2base64(cropped_face),
+            "gender": face_dict.get('dominant_gender'),
+            "age": str(face_dict.get('age')),
+            "ethnicity": face_dict.get('dominant_race'),
+            "emotion": face_dict.get('dominant_emotion')
         }
 
         with open("persons.json", "r") as file:
@@ -54,45 +60,38 @@ def getImage(frame):
         with open("persons.json", "w") as file:
             json.dump(data, file)
 
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 3)
 
-        cv2.imshow('Cropped', cropped_img)
-        cv2.putText(frame, txt, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
-        # saveImage(frame)
-    # cv2.imshow('Picture', frame)
+def getcroppedFace(face_dict):
+    x = face_dict.get('region')['x']
+    y = face_dict.get('region')['y']
+    w = face_dict.get('region')['w']
+    h = face_dict.get('region')['h']
 
-    time.sleep(30)
-
-
-def saveImage(frame):
-    cv2.imwrite('Pictures\img' + str(uuid.uuid4()) + '.jpg', frame)
+    cropped_nd = frame[y:y + h, x:x + w]
+    return Image.fromarray(cropped_nd)
 
 
-def isPresent(face):
+def isPresent(cropped_face):
     with open("persons.json", "r") as file:
         data = json.load(file)
 
-    for element in data['persons']:
-        decode = base64.b64decode(element.get('cropped_img_base'))
+        for element in data['persons']:
 
-        #img = Image.open(io.BytesIO(decode))
-        #img = Image.frombytes(decode)
-        #img.save("temp1.jpeg", "JPEG")
-        #cv2.imwrite("temp2.jpeg", face)
-        #print(DeepFace.verify(img1_path="temp1.jpeg", img2_path="temp2.jpeg", detector_backend="mtcnn"))
+            img = base64_to_rgb(element.get('cropped_img_base'), "PIL")
+
+            img.save("temp1.jpeg", "JPEG")
+            cropped_face.save("temp2.jpeg", "JPEG")
+            dict = DeepFace.verify(img1_path="temp1.jpeg", img2_path="temp2.jpeg", detector_backend="mtcnn",
+                                   enforce_detection=False)
+
+            if dict['verified']:
+                return True
+
+        return False
 
 
 if __name__ == "__main__":
 
-    # root = tk.Tk()
-
-    # root.geometry('1000x500')
-    # root.title('Visitor Dashboard')
-
-    # label = tk.Label(root, text='Hello Visitor!', font=('Arial', 18))
-    # label.pack(padx=20, pady=20)
-
-    # root.mainloop()
     cap = cv2.VideoCapture(0)
     while True:
         ret, frame = cap.read()

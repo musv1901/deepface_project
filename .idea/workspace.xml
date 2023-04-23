@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0afe18ce-cfe6-42af-8966-dfd4c2ea38af" name="Changes" comment="pusha p">
+    <list default="true" id="0afe18ce-cfe6-42af-8966-dfd4c2ea38af" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +17,17 @@
       </list>
     </option>
   </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -28,12 +39,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.py" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="deepface_project" />
@@ -42,7 +54,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\chris\AppData\Local\Programs\Python\Python39\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\Sven\PycharmProjects\deepface_project\scripts\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -67,10 +79,18 @@
       <option name="presentableId" value="Default" />
       <updated>1681751672410</updated>
       <workItem from="1681751674912" duration="40000" />
+<<<<<<< HEAD
       <workItem from="1681751775465" duration="5219000" />
       <workItem from="1682009303450" duration="2418000" />
       <workItem from="1682011760071" duration="10000" />
       <workItem from="1682011778215" duration="8733000" />
+=======
+      <workItem from="1681751775465" duration="4688000" />
+      <workItem from="1682005406200" duration="15691000" />
+      <workItem from="1682022119150" duration="2145000" />
+      <workItem from="1682200598361" duration="1113000" />
+      <workItem from="1682256331005" duration="1302000" />
+>>>>>>> a0e24d493135084562554f2d64522da09c1af205
     </task>
     <task id="LOCAL-00001" summary="first one">
       <created>1681751942401</created>
@@ -86,34 +106,63 @@
       <option name="project" value="LOCAL" />
       <updated>1681751964099</updated>
     </task>
-    <task id="LOCAL-00003" summary="pusha p">
-      <created>1681756521459</created>
+    <task id="LOCAL-00003" summary="commit or">
+      <created>1682009818573</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1681756521459</updated>
+      <updated>1682009818573</updated>
     </task>
-    <task id="LOCAL-00004" summary="pusha p">
-      <created>1681757032374</created>
+    <task id="LOCAL-00004" summary="commit">
+      <created>1682010091252</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1681757032374</updated>
+      <updated>1682010091252</updated>
     </task>
-    <task id="LOCAL-00005" summary="pusha p">
-      <created>1682017555957</created>
+    <task id="LOCAL-00005" summary="added persons.json">
+      <created>1682015756063</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1682017555957</updated>
+      <updated>1682015756063</updated>
     </task>
-    <task id="LOCAL-00006" summary="pusha p">
-      <created>1682017633675</created>
+    <task id="LOCAL-00006" summary="commit">
+      <created>1682017693423</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1682017633675</updated>
+      <updated>1682017693423</updated>
     </task>
+    <task id="LOCAL-00007" summary="pushin pppppp">
+      <created>1682019971117</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682019971117</updated>
+    </task>
+    <task id="LOCAL-00008" summary="pushin pppppp">
+      <created>1682021241517</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682021241517</updated>
+    </task>
+    <task id="LOCAL-00009" summary="commit">
+      <created>1682024276062</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682024276062</updated>
+    </task>
+    <task id="LOCAL-00010" summary="commit">
+      <created>1682201703118</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1682201703118</updated>
+    </task>
+<<<<<<< HEAD
     <task id="LOCAL-00007" summary="pusha p">
       <created>1682019999273</created>
       <option name="number" value="00007" />
@@ -122,6 +171,9 @@
       <updated>1682019999273</updated>
     </task>
     <option name="localTasksCounter" value="8" />
+=======
+    <option name="localTasksCounter" value="11" />
+>>>>>>> a0e24d493135084562554f2d64522da09c1af205
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,11 +192,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first one" />
-    <MESSAGE value="pusha p" />
-    <option name="LAST_COMMIT_MESSAGE" value="pusha p" />
+    <MESSAGE value="commit or" />
+    <MESSAGE value="added persons.json" />
+    <MESSAGE value="pushin pppppp" />
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/deepface_project$deepface_project.coverage" NAME="main Coverage Results" MODIFIED="1681756438536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/deepface_project$main.coverage" NAME="main Coverage Results" MODIFIED="1682011100662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$main.coverage" NAME="main Coverage Results" MODIFIED="1682257632105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
