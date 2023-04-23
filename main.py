@@ -10,63 +10,68 @@ import tkinter as tk
 import customtkinter
 from PIL import Image
 from image2base64.converters import base64_to_rgb, rgb2base64
+from concurrent.futures import ThreadPoolExecutor
 
 
 def getImage(frame):
-    result = DeepFace.analyze(img_path=frame, enforce_detection=False, detector_backend='mtcnn')
-    #cv2.imshow('Picture', frame)
+    with ThreadPoolExecutor() as executor:
+        cv2.imshow('Picture', frame)
+        future = executor.submit(DeepFace.analyze, img_path=frame, enforce_detection=False, detector_backend='mtcnn')
+        result = future.result()
+
 
     for face in result:
-        txt = 'Gender: ' + face.get('dominant_gender') + '\n' \
-              + 'Age: ' + str(face.get('age')) + '\n' \
-              + 'ethnicity: ' + face.get('dominant_race') + '\n' \
-              + 'Emotion: ' + face.get('dominant_emotion')
+        # txt = 'Gender: ' + face.get('dominant_gender') + '\n' \
+        #      + 'Age: ' + str(face.get('age')) + '\n' \
+        #      + 'ethnicity: ' + face.get('dominant_race') + '\n' \
+        #      + 'Emotion: ' + face.get('dominant_emotion')
 
-        print(txt)
+        storeFace(face)
 
-        x = face.get('region')['x']
-        y = face.get('region')['y']
-        w = face.get('region')['w']
-        h = face.get('region')['h']
+        # cv2.rectangle(cropped_nd, (x, y), (x + w, y + h), (255, 0, 0), 3)
 
-        cropped_nd = frame[y:y + h, x:x + w]
-        cropped_img = Image.fromarray(cropped_nd)
-
-        if not isPresent(cropped_img):
-
-            person = {
-                "firstname": "",
-                "lastname": "",
-                "cropped_img_base": rgb2base64(cropped_img),
-                "gender": face.get('dominant_gender'),
-                "age": str(face.get('age')),
-                "ethnicity": face.get('dominant_race'),
-                "emotion": face.get('dominant_emotion')
-            }
-
-            with open("persons.json", "r") as file:
-                data = json.load(file)
-
-            data['persons'].append(person)
-
-            with open("persons.json", "w") as file:
-                json.dump(data, file)
-
-        cv2.rectangle(cropped_nd, (x, y), (x + w, y + h), (255, 0, 0), 3)
-
-        #cv2.imshow('Cropped', cropped_nd)
+        # cv2.imshow('Cropped', cropped_nd)
         # cv2.putText(cropped_nd, txt, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
         # saveImage(frame)
 
-    #time.sleep(5)
+    # time.sleep(5)
 
 
-def saveImage(frame):
-    cv2.imwrite('Pictures\img' + str(uuid.uuid4()) + '.jpg', frame)
+def storeFace(face_dict):
+
+    cropped_face = getcroppedFace(face_dict)
+
+    if not isPresent(cropped_face):
+        person = {
+            "firstname": "",
+            "lastname": "",
+            "cropped_img_base": rgb2base64(cropped_face),
+            "gender": face_dict.get('dominant_gender'),
+            "age": str(face_dict.get('age')),
+            "ethnicity": face_dict.get('dominant_race'),
+            "emotion": face_dict.get('dominant_emotion')
+        }
+
+        with open("persons.json", "r") as file:
+            data = json.load(file)
+
+        data['persons'].append(person)
+
+        with open("persons.json", "w") as file:
+            json.dump(data, file)
 
 
-def isPresent(face):
+def getcroppedFace(face_dict):
+    x = face_dict.get('region')['x']
+    y = face_dict.get('region')['y']
+    w = face_dict.get('region')['w']
+    h = face_dict.get('region')['h']
 
+    cropped_nd = frame[y:y + h, x:x + w]
+    return Image.fromarray(cropped_nd)
+
+
+def isPresent(cropped_face):
     with open("persons.json", "r") as file:
         data = json.load(file)
 
@@ -75,9 +80,9 @@ def isPresent(face):
             img = base64_to_rgb(element.get('cropped_img_base'), "PIL")
 
             img.save("temp1.jpeg", "JPEG")
-            face.save("temp2.jpeg", "JPEG")
+            cropped_face.save("temp2.jpeg", "JPEG")
             dict = DeepFace.verify(img1_path="temp1.jpeg", img2_path="temp2.jpeg", detector_backend="mtcnn",
-                                     enforce_detection=False)
+                                   enforce_detection=False)
 
             if dict['verified']:
                 return True
