@@ -17,12 +17,24 @@ class GUI:
         description_label = tk.Label(root, font=("Arial", 14), wraplength=500)
         description_label.pack()
 
+<<<<<<< HEAD
+# Define a function to display the next image and description
+=======
         with open("persons.json", "r") as file:
             data = json.load(file)
+>>>>>>> a0e24d493135084562554f2d64522da09c1af205
 
         persons = data['persons']
 
+<<<<<<< HEAD
+current_image = 0
+def show_next_image():
+    global current_image
+    current_image += 1
+    if current_image >= len(persons):
+=======
         # Define a function to display the next image and description
+>>>>>>> a0e24d493135084562554f2d64522da09c1af205
         current_image = 0
 
     def show_next_image(current_image):

@@ -1,0 +1,18 @@
+Index: main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import time\r\nfrom deepface import DeepFace\r\nimport cv2\r\nimport uuid\r\n\r\n\r\ndef getImage():\r\n    cap = cv2.VideoCapture(0)\r\n\r\n    while True:\r\n        ret, frame = cap.read()\r\n\r\n        result = DeepFace.analyze(img_path=frame, enforce_detection=False)\r\n\r\n        for face in result:\r\n            print(face)\r\n            txt = 'Gender: ' + face.get('dominant_gender') + '\\n' \\\r\n                  + 'Age: ' + str(face.get('age')) + '\\n' \\\r\n                  + 'ethnicity: ' + face.get('dominant_race') + '\\n' \\\r\n                  + 'Emotion: ' + face.get('dominant_emotion')\r\n\r\n            print(txt)\r\n\r\n            x = face.get('region')['x']\r\n            y = face.get('region')['y']\r\n            w = face.get('region')['w']\r\n            h = face.get('region')['h']\r\n\r\n            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 3)\r\n            cv2.putText(frame, txt, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)\r\n            saveImage(frame)\r\n        cv2.imshow('Picture', frame)\r\n\r\n        if cv2.waitKey(1) & 0xff == ord('q'):\r\n            break\r\n        time.sleep(10)\r\n\r\n    cap.release()\r\n    cv2.destroyAllWindows()\r\n\r\n\r\ndef saveImage(frame):\r\n    cv2.imwrite('Pictures\\img' + str(uuid.uuid4()) + '.jpg', frame)\r\n\r\n\r\ngetImage()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.py b/main.py
+--- a/main.py	
++++ b/main.py	
+@@ -11,6 +11,7 @@
+         ret, frame = cap.read()
+ 
+         result = DeepFace.analyze(img_path=frame, enforce_detection=False)
++        print(result)
+ 
+         for face in result:
+             print(face)
