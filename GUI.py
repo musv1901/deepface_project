@@ -20,7 +20,7 @@ class GUI:
 <<<<<<< HEAD
 # Define a function to display the next image and description
 =======
-        with open("persons.json", "r") as file:
+        with open("persons_history.json", "r") as file:
             data = json.load(file)
 >>>>>>> a0e24d493135084562554f2d64522da09c1af205
 
