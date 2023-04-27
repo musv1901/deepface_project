@@ -1,0 +1,10 @@
+=== Confluent Cloud API key: lkc-97m180 ===
+
+API key:
+IQWQEIPSOPQQCPI7
+
+API secret:
+uGgjXqm0aHXO60VaC5Hdrv59ayVZ+k2fwoRuEMv8mHzw8UbAIeePlaO2LF9u1EPp
+
+Bootstrap server:
+pkc-75m1o.europe-west3.gcp.confluent.cloud:9092
