@@ -2,22 +2,23 @@ import json
 import time
 from deepface import DeepFace
 import cv2
-import uuid
-import image2base64
-import io
-from io import BytesIO
-import tkinter as tk
-import customtkinter
 from PIL import Image
 from image2base64.converters import base64_to_rgb, rgb2base64
 import multiprocessing as mp
-import concurrent.futures
 
 
 def cameraFeed(cap):
+    start_time = time.time()
 
     while True:
+
         ret, frame = cap.read()
+
+        if time.time() - start_time >= 20:
+            print("Start analyzing")
+            p = mp.Pool(processes=1)
+            p.apply_async(analyzeScreenshot, args=(frame, ))
+            start_time = time.time()
 
         detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv')
 
@@ -33,40 +34,32 @@ def cameraFeed(cap):
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
 
-        counter = counter + 1
-
     cap.release()
     cv2.destroyAllWindows()
 
 
+def analyzeScreenshot(frame):
+    result = DeepFace.analyze(img_path=frame, enforce_detection=False, detector_backend='mtcnn')
 
-def analyzeScreenshot(cap):
-    while True:
-        ret, frame = cap.read()
+    p_list = {
+        "persons": [
 
-        result = DeepFace.analyze(img_path=frame, enforce_detection=False, detector_backend='mtcnn')
+        ]
+    }
 
-        p_list = {
-            "persons": [
+    for face in result:
+        cropped = getcroppedFace(face, frame)
+        info = getpersonInfo(face, cropped)
+        p_list["persons"].append(info)
 
-            ]
-        }
+        if not isPresent(cropped):
+            storefaceHistory(info)
 
-        for face in result:
-            cropped = getcroppedFace(face, frame)
-            info = getpersonInfo(face, cropped)
-            p_list["persons"].append(info)
+    with open("persons_present.json", "w") as file:
+        json.dump(p_list, file)
 
-            if not isPresent(cropped):
-                storefaceHistory(info)
-
-        with open("persons_present.json", "w") as file:
-            json.dump(p_list, file)
-
-        time.sleep(15)
 
 def getpersonInfo(face_dict, cropped_face):
-
     return {
         "firstname": "",
         "lastname": "",
@@ -79,7 +72,6 @@ def getpersonInfo(face_dict, cropped_face):
 
 
 def storefaceHistory(face_info):
-
     with open("persons_history.json", "r") as file:
         data = json.load(file)
 
@@ -121,15 +113,5 @@ def isPresent(cropped_face):
 if __name__ == "__main__":
     cap_feed = cv2.VideoCapture(0)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-        futures = executor.submit(cameraFeed(cap_feed))
-        futures += executor.submit(analyzeScreenshot(cap_feed))
-
-
-    for future in concurrent.futures.as_completed(futures):
-        result = future.result()
-
-    #p1 = mp.Process(target=cameraFeed(cap_feed))
-    #p2 = mp.Process(target=analyzeScreenshot(cap_analyze))
-
+    cameraFeed(cap_feed)
 
