@@ -5,8 +5,10 @@ import cv2
 from PIL import Image
 from image2base64.converters import base64_to_rgb, rgb2base64
 import multiprocessing as mp
+from confluent_kafka import Producer, Consumer
 
-def cameraFeed(cap):
+
+def camera_feed(cap):
     start_time = time.time()
 
     while True:
@@ -16,7 +18,7 @@ def cameraFeed(cap):
         if time.time() - start_time >= 20:
             print("Start analyzing")
             p = mp.Pool(processes=1)
-            p.apply_async(analyzeScreenshot, args=(frame, ))
+            p.apply_async(analyze_screenshot, args=(frame,))
             start_time = time.time()
 
         detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv')
@@ -37,7 +39,7 @@ def cameraFeed(cap):
     cv2.destroyAllWindows()
 
 
-def analyzeScreenshot(frame):
+def analyze_screenshot(frame):
     result = DeepFace.analyze(img_path=frame, enforce_detection=False, detector_backend='mtcnn')
 
     p_list = {
@@ -47,18 +49,18 @@ def analyzeScreenshot(frame):
     }
 
     for face in result:
-        cropped = getcroppedFace(face, frame)
-        info = getpersonInfo(face, cropped)
+        cropped = get_cropped_face(face, frame)
+        info = get_person_info(face, cropped)
         p_list["persons"].append(info)
 
-        if not isPresent(cropped):
-            storefaceHistory(info)
+        if not is_present(cropped):
+            store_face_history(info)
 
     with open("persons_present.json", "w") as file:
         json.dump(p_list, file)
 
 
-def getpersonInfo(face_dict, cropped_face):
+def get_person_info(face_dict, cropped_face):
     return {
         "firstname": "",
         "lastname": "",
@@ -70,7 +72,7 @@ def getpersonInfo(face_dict, cropped_face):
     }
 
 
-def storefaceHistory(face_info):
+def store_face_history(face_info):
     with open("persons_history.json", "r") as file:
         data = json.load(file)
 
@@ -80,7 +82,7 @@ def storefaceHistory(face_info):
         json.dump(data, file)
 
 
-def getcroppedFace(face_dict, frame):
+def get_cropped_face(face_dict, frame):
     x = face_dict.get('region')['x']
     y = face_dict.get('region')['y']
     w = face_dict.get('region')['w']
@@ -90,7 +92,7 @@ def getcroppedFace(face_dict, frame):
     return Image.fromarray(cropped_nd)
 
 
-def isPresent(cropped_face):
+def is_present(cropped_face):
     with open("persons_history.json", "r") as file:
         data = json.load(file)
 
@@ -109,8 +111,39 @@ def isPresent(cropped_face):
         return False
 
 
+def read_ccloud_config():
+    conf = {}
+    with open("kafka_config.txt") as fh:
+        for line in fh:
+            line = line.strip()
+            if len(line) != 0 and line[0] != '#':
+                parameter, value = line.strip().split('=', 1)
+                conf[parameter] = value.strip()
+    return conf
+
+
+def get_producer(conf):
+    return Producer(conf)
+
+
+def get_consumer(conf):
+    conf["group.id"] = "python-group-1"
+    conf["auto.offset.reset"] = "earliest"
+
+    return Consumer(conf)
+
+
+def produce_to_analyze(msg):
+    producer.produce("toAnalyze", key="1", msg=msg)
+
+
 if __name__ == "__main__":
+    kafka_conf = read_ccloud_config()
+    producer = get_producer(kafka_conf)
+    consumer = get_consumer(kafka_conf)
+
+    produce_to_analyze("Test_MSG")
+
     cap_feed = cv2.VideoCapture(0)
 
-    cameraFeed(cap_feed)
-
+    camera_feed(cap_feed)
