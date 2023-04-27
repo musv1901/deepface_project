@@ -6,7 +6,6 @@ from PIL import Image
 from image2base64.converters import base64_to_rgb, rgb2base64
 import multiprocessing as mp
 
-
 def cameraFeed(cap):
     start_time = time.time()
 
