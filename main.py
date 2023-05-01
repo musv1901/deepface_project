@@ -17,8 +17,8 @@ def camera_feed(cap):
 
         if time.time() - start_time >= 20:
             print("Start analyzing")
-            p = mp.Pool(processes=1)
-            p.apply_async(analyze_screenshot, args=(frame,))
+            # p = mp.Pool(processes=1)
+            # p.apply_async(analyze_screenshot, args=(frame,))
             start_time = time.time()
 
         detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv')
@@ -111,14 +111,34 @@ def is_present(cropped_face):
         return False
 
 
+def get_persons_statistics():
+    sum_age = 0
+    male_count = 0
+
+    with open("persons_present.json", "r") as file:
+        data = json.load(file)
+
+    for element in data['persons']:
+        sum_age = sum_age + float(element.get("age"))
+
+        if element.get("gender") == "Man":
+            male_count = male_count + 1
+
+    return {
+        "avg_age": str(len(data['persons']) / sum_age),
+        "male_percentage": str(float(male_count / len(data['persons']))*100)
+    }
+
+
 def read_ccloud_config():
     conf = {}
-    with open("kafka_config.txt") as fh:
+    with open("kafka_config.txt", "r") as fh:
         for line in fh:
             line = line.strip()
             if len(line) != 0 and line[0] != '#':
                 parameter, value = line.strip().split('=', 1)
                 conf[parameter] = value.strip()
+    print(conf)
     return conf
 
 
@@ -134,7 +154,8 @@ def get_consumer(conf):
 
 
 def produce_to_analyze(msg):
-    producer.produce("toAnalyze", key="1", msg=msg)
+    producer.produce("toAnalyze", key="1", value=msg)
+    producer.flush()
 
 
 if __name__ == "__main__":
