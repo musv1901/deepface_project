@@ -6,6 +6,8 @@ from PIL import Image
 from image2base64.converters import base64_to_rgb, rgb2base64
 import multiprocessing as mp
 from confluent_kafka import Producer, Consumer
+import csv
+from datetime import datetime
 
 
 def camera_feed(cap):
@@ -124,10 +126,33 @@ def get_persons_statistics():
         if element.get("gender") == "Man":
             male_count = male_count + 1
 
-    return {
-        "avg_age": str(len(data['persons']) / sum_age),
-        "male_percentage": str(float(male_count / len(data['persons']))*100)
+    avg_age = sum_age / len(data['persons'])
+    male_percentage = float(male_count / len(data['persons']))*100
+    woman_percentage = 100 - male_percentage
+
+    timestamp = time.time()
+    date_time = datetime.fromtimestamp(timestamp)
+    str_date_time = date_time.strftime("%d-%m-%Y %H:%M:%S")
+
+    pers_stats = {
+        "timestamp": str_date_time,
+        "avg_age": avg_age,
+        "male_percentage": male_percentage,
+        "woman_percentage": woman_percentage
     }
+
+    create_timestamp(pers_stats)
+
+    return pers_stats
+
+
+def create_timestamp(pers_stats):
+
+    field_names = ['timestamp', 'avg_age', 'male_percentage', 'woman_percentage']
+
+    with open('stats_history.csv', 'a') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=field_names)
+        writer.writerow(pers_stats)
 
 
 def read_ccloud_config():
@@ -159,12 +184,15 @@ def produce_to_analyze(msg):
 
 
 if __name__ == "__main__":
+
+    get_persons_statistics()
+
     kafka_conf = read_ccloud_config()
     producer = get_producer(kafka_conf)
-    consumer = get_consumer(kafka_conf)
+    #consumer = get_consumer(kafka_conf)
 
-    produce_to_analyze("Test_MSG")
+    #produce_to_analyze("Test_MSG")
 
-    cap_feed = cv2.VideoCapture(0)
+    #cap_feed = cv2.VideoCapture(0)
 
-    camera_feed(cap_feed)
+    #camera_feed(cap_feed)
