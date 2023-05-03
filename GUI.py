@@ -2,7 +2,6 @@ import tkinter as tk
 import main
 from main import *
 
-
 class GUI:
 
     def __init__(self, window, window_title, video_sources):
@@ -12,13 +11,26 @@ class GUI:
         self.captures = []
         self.canvases = []
 
+        # Get the dimensions of the screen
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+
+        # Set the size of the window to the maximum available size
+        self.window.geometry("{}x{}".format(screen_width, screen_height))
+
+        self.video_box_width = screen_width // 2
+
+        self.video_box_height = screen_height // 2
+
         # Create a canvas and VideoCapture object for each video source
         for i, source in enumerate(video_sources):
-            vid = cv2.VideoCapture(source)
+            vid = cv2.VideoCapture(source, cv2.CAP_DSHOW)
+            vid.set(cv2.CAP_PROP_FRAME_WIDTH, self.video_box_width)
+            vid.set(cv2.CAP_PROP_FRAME_WIDTH, self.video_box_height)
             if vid.isOpened():
                 self.captures.append(vid)
-                canvas = tk.Canvas(window, width=vid.get(cv2.CAP_PROP_FRAME_WIDTH), height=vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
-                canvas.pack(side="left")
+                canvas = tk.Canvas(window, width=self.video_box_width, height=self.video_box_height)
+                canvas.pack(side="top")
                 self.canvases.append(canvas)
             else:
                 print(f"Warning: Could not open video source {i}")
@@ -35,7 +47,8 @@ class GUI:
         for i, vid in enumerate(self.captures):
             ret, frame = vid.read()
             if ret:
-                img = main.detect_faces(frame)
+                img = ImageTk.PhotoImage(
+                    main.detect_faces(frame).resize((self.video_box_width, self.video_box_height), reducing_gap=1.0))
 
                 if img is not None:
                     # display the frame on the canvas
@@ -54,9 +67,10 @@ class GUI:
 
 # Create a window and pass it to the Application object
 root = tk.Tk()
-gui = GUI(root, "GUI-Test", [0, 1])
-#root.geometry("500x500+50+50")
-#root.attributes("-fullscreen", True)
+gui = GUI(root, "GUI-Test", [0, 0])
+
+# root.geometry("500x500+50+50")
+# root.attributes("-fullscreen", True)
 
 
 #

@@ -4,7 +4,6 @@ from deepface import DeepFace
 import cv2
 from PIL import Image, ImageTk
 from image2base64.converters import base64_to_rgb, rgb2base64
-import multiprocessing as mp
 from confluent_kafka import Producer, Consumer
 import csv
 from datetime import datetime
@@ -12,7 +11,7 @@ from datetime import datetime
 
 def detect_faces(frame):
 
-    detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv')
+    detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv', align=False)
 
     for face in detectedFaces:
         if face['confidence'] > 6:
@@ -24,7 +23,7 @@ def detect_faces(frame):
 
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
-    return ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
+    return Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
 
 def analyze_screenshot(frame):
