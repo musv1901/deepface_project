@@ -2,7 +2,7 @@ import json
 import time
 from deepface import DeepFace
 import cv2
-from PIL import Image
+from PIL import Image, ImageTk
 from image2base64.converters import base64_to_rgb, rgb2base64
 import multiprocessing as mp
 from confluent_kafka import Producer, Consumer
@@ -10,22 +10,15 @@ import csv
 from datetime import datetime
 
 
-def camera_feed(cap):
-    start_time = time.time()
+def camera_feed(feed):
 
-    while True:
+    ret, frame = feed.read()
 
-        ret, frame = cap.read()
+    detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv')
 
-        if time.time() - start_time >= 20:
-            print("Start analyzing")
-            # p = mp.Pool(processes=1)
-            # p.apply_async(analyze_screenshot, args=(frame,))
-            start_time = time.time()
+    for face in detectedFaces:
+        if face['confidence'] > 5:
 
-        detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv')
-
-        for face in detectedFaces:
             x = face['facial_area']['x']
             y = face['facial_area']['y']
             w = face['facial_area']['w']
@@ -33,12 +26,9 @@ def camera_feed(cap):
 
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
-        cv2.imshow("frame", frame)
-        if cv2.waitKey(1) & 0xff == ord('q'):
-            break
+    return ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
 
-    cap.release()
-    cv2.destroyAllWindows()
+    # cv2.imshow("frame", frame)
 
 
 def analyze_screenshot(frame):
@@ -127,7 +117,7 @@ def get_persons_statistics():
             male_count = male_count + 1
 
     avg_age = sum_age / len(data['persons'])
-    male_percentage = float(male_count / len(data['persons']))*100
+    male_percentage = float(male_count / len(data['persons'])) * 100
     woman_percentage = 100 - male_percentage
 
     timestamp = time.time()
@@ -147,7 +137,6 @@ def get_persons_statistics():
 
 
 def create_timestamp(pers_stats):
-
     field_names = ['timestamp', 'avg_age', 'male_percentage', 'woman_percentage']
 
     with open('stats_history.csv', 'a') as csvfile:
@@ -184,15 +173,14 @@ def produce_to_analyze(msg):
 
 
 if __name__ == "__main__":
-
     get_persons_statistics()
 
     kafka_conf = read_ccloud_config()
     producer = get_producer(kafka_conf)
-    #consumer = get_consumer(kafka_conf)
+    # consumer = get_consumer(kafka_conf)
 
-    #produce_to_analyze("Test_MSG")
+    # produce_to_analyze("Test_MSG")
 
-    #cap_feed = cv2.VideoCapture(0)
+    # cap_feed = cv2.VideoCapture(0)
 
-    #camera_feed(cap_feed)
+    # camera_feed(cap_feed)
