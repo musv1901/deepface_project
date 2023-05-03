@@ -1,52 +1,63 @@
-import cv2
-from PIL import Image, ImageTk
-import time
 import tkinter as tk
-
 import main
 from main import *
 
 
 class GUI:
 
-    def __init__(self, window, window_title, video_source=0):
+    def __init__(self, window, window_title, video_sources):
         self.window = window
         self.window.title(window_title)
-        self.video_source = video_source
 
-        # open video source (by default this will try to open the computer webcam)
-        self.vid = cv2.VideoCapture(self.video_source)
+        self.captures = []
+        self.canvases = []
 
-        # Create a canvas that can fit the above video source size
-        self.canvas = tk.Canvas(window, width=self.vid.get(cv2.CAP_PROP_FRAME_WIDTH),
-                                height=self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        self.canvas.pack()
+        # Create a canvas and VideoCapture object for each video source
+        for i, source in enumerate(video_sources):
+            vid = cv2.VideoCapture(source)
+            if vid.isOpened():
+                self.captures.append(vid)
+                canvas = tk.Canvas(window, width=vid.get(cv2.CAP_PROP_FRAME_WIDTH), height=vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                canvas.pack(side="left")
+                self.canvases.append(canvas)
+            else:
+                print(f"Warning: Could not open video source {i}")
 
         # After it is called once, the update method will be automatically called every delay milliseconds
         self.delay = 1
 
         self.update()
 
+        self.window.protocol("WM_DELETE_WINDOW", self.on_close)
         self.window.mainloop()
 
     def update(self):
-        frame = main.camera_feed(self.vid)
+        for i, vid in enumerate(self.captures):
+            ret, frame = vid.read()
+            if ret:
+                img = main.detect_faces(frame)
 
-        if frame is not None:
-            # display the frame on the canvas
-            self.canvas.create_image(0, 0, image=frame, anchor=tk.NW)
-            self.canvas.image = frame
+                if img is not None:
+                    # display the frame on the canvas
+                    self.canvases[i].create_image(0, 0, image=img, anchor=tk.NW)
+                    self.canvases[i].image = img
 
         # call the update method after the specified delay
         self.window.after(self.delay, self.update)
 
+    def on_close(self):
+        # Release all video captures when the GUI window is closed
+        for vid in self.captures:
+            vid.release()
+        self.window.destroy()
+
 
 # Create a window and pass it to the Application object
 root = tk.Tk()
+gui = GUI(root, "GUI-Test", [0, 1])
 #root.geometry("500x500+50+50")
 #root.attributes("-fullscreen", True)
 
-GUI(root, "GUI-Test")
 
 #
 #     def showGUI(self):

@@ -10,14 +10,12 @@ import csv
 from datetime import datetime
 
 
-def camera_feed(feed):
-
-    ret, frame = feed.read()
+def detect_faces(frame):
 
     detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv')
 
     for face in detectedFaces:
-        if face['confidence'] > 5:
+        if face['confidence'] > 6:
 
             x = face['facial_area']['x']
             y = face['facial_area']['y']
@@ -28,10 +26,9 @@ def camera_feed(feed):
 
     return ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
 
-    # cv2.imshow("frame", frame)
-
 
 def analyze_screenshot(frame):
+
     result = DeepFace.analyze(img_path=frame, enforce_detection=False, detector_backend='mtcnn')
 
     p_list = {
