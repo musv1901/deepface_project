@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import ImageTk
 import main
-from main import *
+import cv2
 
 
 class GUI:
@@ -10,6 +11,7 @@ class GUI:
         self.window = window
         self.window.title(window_title)
 
+        self.video_sources = video_sources
         self.captures = []
         self.canvases = []
 
@@ -36,8 +38,19 @@ class GUI:
 
         self.video_box_height = screen_height // 2
 
-        # Create a canvas and VideoCapture object for each video source
-        for i, source in enumerate(video_sources):
+        self.create_camera_feeds()
+
+        # After it is called once, the update method will be automatically called every delay milliseconds
+        self.delay = 1
+
+        self.update()
+
+        self.window.protocol("WM_DELETE_WINDOW", self.on_close)
+        self.window.mainloop()
+
+    def create_camera_feeds(self):
+        # Create GUI elements --- camera feeds
+        for i, source in enumerate(self.video_sources):
             vid = cv2.VideoCapture(source, cv2.CAP_DSHOW)
             vid.set(cv2.CAP_PROP_FRAME_WIDTH, self.video_box_width)
             vid.set(cv2.CAP_PROP_FRAME_WIDTH, self.video_box_height)
@@ -55,14 +68,6 @@ class GUI:
                 self.canvases.append(canvas)
             else:
                 print(f"Warning: Could not open video source {i}")
-
-        # After it is called once, the update method will be automatically called every delay milliseconds
-        self.delay = 1
-
-        self.update()
-
-        self.window.protocol("WM_DELETE_WINDOW", self.on_close)
-        self.window.mainloop()
 
     def update(self):
         for i, vid in enumerate(self.captures):

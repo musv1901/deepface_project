@@ -127,7 +127,7 @@ def get_persons_statistics():
         "woman_percentage": woman_percentage
     }
 
-    create_timestamp(pers_stats)
+    #create_timestamp(pers_stats)
 
     return pers_stats
 
