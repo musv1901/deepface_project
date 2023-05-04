@@ -5,10 +5,13 @@ import multiprocessing as mp
 import cv2
 
 
-class GUI:
+class View(object):
 
-    def __init__(self, controller):
+    def __init__(self):
+        self.callbacks = {}
+        self._show_gui()
 
+    def _show_gui(self):
         self.window = tk.Tk()
         self.window.title("GUI")
 
@@ -39,54 +42,29 @@ class GUI:
 
         self.video_box_height = self.screen_height // 2
 
-        self.controller = controller
+        self.btn = tk.Button(text="Click")
 
         self.create_camera_feeds()
-        self.create_start_btn()
-
-        # After it is called once, the update method will be automatically called every delay milliseconds
-        self.delay = 1
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
-        self.window.mainloop()
-
-    def get_window(self):
-        return self.window
 
     def create_camera_feeds(self):
-
-        canvas1 = tk.Canvas(self.tab1, width=self.video_box_width / 2, height=self.video_box_height / 2)
+        canvas1 = tk.Canvas(self.tab1, width=self.video_box_width, height=self.video_box_height)
         canvas1.pack(side="left", anchor="nw")
         self.canvases.append(canvas1)
 
-        canvas2 = tk.Canvas(self.tab1, width=self.video_box_width / 2, height=self.video_box_height / 2)
+        canvas2 = tk.Canvas(self.tab1, width=self.video_box_width, height=self.video_box_height)
         canvas2.pack(side="right", anchor="nw")
         self.canvases.append(canvas2)
 
-    def create_start_btn(self):
+    def bind_commands(self):
+        self.btn.config(command=self.callbacks['import'])
 
-        btn = tk.Button(self.tab1, text="Start", command=self.controller.start())
-        btn.pack()
+    def add_callback(self, key, method):
+        self.callbacks[key] = method
 
-    def start_multiprocessing(self):
-
-        processes = [mp.Process(target=self.update, args=(i,)) for i in range(len(self.video_sources))]
-
-        for p in processes:
-            p.start()
-
-        for p in processes:
-            p.join()
-
-    def update(self, frame, i):
-
-        img = ImageTk.PhotoImage(Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)).resize(
-            (self.video_box_width, self.video_box_height), reducing_gap=1.0))
-
-        if img is not None:
-            # display the frame on the canvas
-            self.canvases[i].create_image(0, 0, image=img, anchor=tk.NW)
-            self.canvases[i].image = img
+    def run(self):
+        self.window.mainloop()
 
     def on_close(self):
         # Release all video captures when the GUI window is closed

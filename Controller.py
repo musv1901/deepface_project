@@ -1,28 +1,22 @@
-from GUI import GUI
+import tkinter as tk
+from PIL import Image
+
 import cv2
+from PIL import ImageTk
 
 
 class Controller:
 
-    def __init__(self):
-        self.video_sources = [0, 0]
-        self.video_feeds = []
+    def __init__(self, model, view):
+        self.model = model
+        self.view = view
 
-    def start(self):
+    def update_view(self, frame, i):
+        img = ImageTk.PhotoImage(frame.resize(
+            (self.view.video_box_width, self.view.video_box_height), reducing_gap=1.0))
 
-        for source in self.video_sources:
-            vid = cv2.VideoCapture(source, cv2.CAP_DSHOW)
-            vid.set(cv2.CAP_PROP_FRAME_WIDTH, gui.screen_width / 2)
-            vid.set(cv2.CAP_PROP_FRAME_HEIGHT, gui.screen_height / 2)
-            vid.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
-            self.video_feeds.append(vid)
+        if img is not None:
+            # display the frame on the canvas
+            self.view.canvases[i].create_image(0, 0, image=img, anchor=tk.NW)
+            self.view.canvases[i].image = img
 
-        while True:
-            for i, feed in enumerate(self.video_feeds):
-                ret, frame = feed.read()
-                if ret:
-                    gui.update(frame, i)
-
-
-controller = Controller()
-gui = GUI(controller)
