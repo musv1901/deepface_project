@@ -1,6 +1,8 @@
 import tkinter as tk
+from tkinter import ttk
 import main
 from main import *
+
 
 class GUI:
 
@@ -10,6 +12,18 @@ class GUI:
 
         self.captures = []
         self.canvases = []
+
+        # Create a Notebook widget
+        self.notebook = ttk.Notebook(window)
+        self.notebook.pack(fill="both", expand=True)
+
+        # Create a separate Frame for each tab
+        self.tab1 = ttk.Frame(self.notebook)
+        self.tab2 = ttk.Frame(self.notebook)
+
+        # Add the tabs to the Notebook
+        self.notebook.add(self.tab1, text="Live Feed")
+        self.notebook.add(self.tab2, text="Wall")
 
         # Get the dimensions of the screen
         screen_width = self.window.winfo_screenwidth()
@@ -27,10 +41,17 @@ class GUI:
             vid = cv2.VideoCapture(source, cv2.CAP_DSHOW)
             vid.set(cv2.CAP_PROP_FRAME_WIDTH, self.video_box_width)
             vid.set(cv2.CAP_PROP_FRAME_WIDTH, self.video_box_height)
+            vid.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+
             if vid.isOpened():
                 self.captures.append(vid)
-                canvas = tk.Canvas(window, width=self.video_box_width, height=self.video_box_height)
-                canvas.pack(side="top")
+                canvas = tk.Canvas(self.tab1, width=self.video_box_width, height=self.video_box_height)
+
+                if i == 0:
+                    canvas.pack(side="left", anchor="nw")
+                elif i == 1:
+                    canvas.pack(side="right", anchor="ne")
+
                 self.canvases.append(canvas)
             else:
                 print(f"Warning: Could not open video source {i}")
