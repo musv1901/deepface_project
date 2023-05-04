@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk, Image
+import multiprocessing as mp
 import main
 import cv2
 
@@ -44,13 +45,14 @@ class GUI:
         # After it is called once, the update method will be automatically called every delay milliseconds
         self.delay = 1
 
+        #self.start_multiprocessing()
         self.update()
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
         self.window.mainloop()
 
     def create_camera_feeds(self):
-        # Create GUI elements --- camera feeds
+
         for i, source in enumerate(self.video_sources):
             vid = cv2.VideoCapture(source, cv2.CAP_DSHOW)
             vid.set(cv2.CAP_PROP_FRAME_WIDTH, self.video_box_width)
@@ -77,14 +79,25 @@ class GUI:
         label = tk.Label(label_frame, text="TEST123", font=("Arial", 40))
         label.pack()
 
+    def start_multiprocessing(self):
+
+        processes = [mp.Process(target=self.update, args=(i,)) for i in range(len(self.video_sources))]
+
+        for p in processes:
+            p.start()
+
+        for p in processes:
+            p.join()
+
     def update(self):
         for i, vid in enumerate(self.captures):
             ret, frame = vid.read()
             if ret:
-                #img = ImageTk.PhotoImage(
-                    #main.detect_faces(frame).resize((self.video_box_width, self.video_box_height), reducing_gap=1.0))
+                # img = ImageTk.PhotoImage(
+                # main.detect_faces(frame).resize((self.video_box_width, self.video_box_height), reducing_gap=1.0))
 
-                img = ImageTk.PhotoImage(Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)).resize((self.video_box_width, self.video_box_height), reducing_gap=1.0))
+                img = ImageTk.PhotoImage(Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)).resize(
+                    (self.video_box_width, self.video_box_height), reducing_gap=1.0))
 
                 if img is not None:
                     # display the frame on the canvas
