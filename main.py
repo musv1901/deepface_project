@@ -14,7 +14,7 @@ def detect_faces(frame):
     detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv', align=False)
 
     for face in detectedFaces:
-        if face['confidence'] > 6:
+        if face['confidence'] > 8:
 
             x = face['facial_area']['x']
             y = face['facial_area']['y']
