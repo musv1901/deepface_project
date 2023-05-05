@@ -1,9 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-from PIL import ImageTk, Image
-import multiprocessing as mp
-import cv2
-
 
 class View(object):
 
@@ -15,8 +11,6 @@ class View(object):
         self.window = tk.Tk()
         self.window.title("GUI")
 
-        self.video_sources = None
-        self.captures = []
         self.canvases = []
 
         # Create a Notebook widget
@@ -42,8 +36,6 @@ class View(object):
 
         self.video_box_height = self.screen_height // 2
 
-        self.btn = tk.Button(text="Click")
-
         self.create_camera_feeds()
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -67,7 +59,5 @@ class View(object):
         self.window.mainloop()
 
     def on_close(self):
-        # Release all video captures when the GUI window is closed
-        for vid in self.captures:
-            vid.release()
+
         self.window.destroy()

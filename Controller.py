@@ -19,4 +19,3 @@ class Controller:
             # display the frame on the canvas
             self.view.canvases[i].create_image(0, 0, image=img, anchor=tk.NW)
             self.view.canvases[i].image = img
-
