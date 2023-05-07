@@ -42,7 +42,7 @@ if __name__ == "__main__":
             if ret:
                 if time.time() - start > TIME_TO_SCREENSHOT_SECS:
                     p_queue.put(frame)
-                    start = time.time()
                 box = model.detect_faces(frame)
                 controller.update_view(box, i)
             view.window.update()
+            start = time.time()

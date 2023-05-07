@@ -1,6 +1,8 @@
+import math
 import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk, Image
+import os
 
 
 class View(object):
@@ -35,7 +37,6 @@ class View(object):
         self.window.geometry("{}x{}".format(self.screen_width, self.screen_height))
 
         self.video_box_width = self.screen_width // 2
-
         self.video_box_height = self.screen_height // 2
 
         self.create_camera_feeds()
@@ -54,19 +55,60 @@ class View(object):
 
     def create_img_wall(self):
 
-        img = Image.open(r"Pictures/480_620_cropped/b1c0bc5b-03c0-4fa7-b93e-b1bebd123b8bupscale_resize_.jpeg")
-        img1 = img.resize((240, 310))
+        path = r"Pictures/480_620_cropped"
 
-        for row in range(3):
-            for col in range(5):
-                frame = ttk.Frame(self.tab2, width=240, height=310)
-                frame.grid(row=row, column=col)
-                label = ttk.Label(frame)
-                label.pack()
+        # img = Image.open(r"Pictures/480_620_cropped/b1c0bc5b-03c0-4fa7-b93e-b1bebd123b8bupscale_resize_.jpeg")
+        # img1 = img.resize((120 * 2, 155 * 2))
 
-                image = ImageTk.PhotoImage(img1)
-                label.configure(image=image)
-                label.image = image
+        folder = os.listdir(path)
+        amount = len(folder)
+        count = 0
+
+        # create a frame for each row
+        for row in range(math.ceil(amount / 7)):
+            row_frame = ttk.Frame(self.tab2, padding=10)
+            row_frame.grid(row=row, column=0, sticky="ew")
+            row_frame.columnconfigure(0, weight=1)
+
+            # create frames for each image and text
+            for col in range(7):
+                frame = ttk.Frame(row_frame, padding=10)
+                # Create a ttk.Style object
+                style = ttk.Style()
+
+                # Set the style properties for the Frame widget
+                style.configure("MyFrame.TFrame", borderwidth=3, relief="solid")
+
+                # Apply the style to the Frame widget
+                frame.configure(style="MyFrame.TFrame")
+
+                frame.grid(row=0, column=col, sticky="nsew")
+                frame.columnconfigure(0, weight=1)
+                frame.rowconfigure(0, weight=1)
+
+                # create labels for the image and text
+                img_label = ttk.Label(frame)
+                img_label.grid(row=0, column=0, sticky="nsew")
+                text_label_age = ttk.Label(frame, text="AGE", width=20)
+                text_label_age.grid(row=1, column=0, sticky="nsew")
+
+                text_label_gender = ttk.Label(frame, text="GENDER", width=20)
+                text_label_gender.grid(row=2, column=0, sticky="nsew")
+
+                text_label_emotion = ttk.Label(frame, text="EMOTION", width=20)
+                text_label_emotion.grid(row=3, column=0, sticky="nsew")
+
+                # load and display the image
+                img = Image.open(os.path.join(path, folder[count]))
+                img = img.resize((240, 310))
+                img_tk = ImageTk.PhotoImage(img)
+                img_label.configure(image=img_tk)
+                img_label.image = img_tk
+
+                # update the count and load the next image
+                count += 1
+                if count == amount:
+                    break
 
     def bind_commands(self):
         self.btn.config(command=self.callbacks['import'])
