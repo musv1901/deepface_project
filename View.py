@@ -1,4 +1,5 @@
 import math
+import uuid
 import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk, Image
@@ -40,7 +41,7 @@ class View(object):
         self.video_box_height = self.screen_height // 2
 
         self.create_camera_feeds()
-        self.create_img_wall()
+        self.refresh_img_wall()
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -53,7 +54,13 @@ class View(object):
         canvas2.pack(side="right", anchor="nw")
         self.canvases.append(canvas2)
 
-    def create_img_wall(self):
+    def refresh_img_wall(self):
+
+        for child in self.tab2.winfo_children():
+            for subchild in child.winfo_children():
+                subchild.destroy()
+            child.destroy()
+
 
         path = r"Pictures/480_620_cropped"
 
@@ -89,13 +96,13 @@ class View(object):
                 # create labels for the image and text
                 img_label = ttk.Label(frame)
                 img_label.grid(row=0, column=0, sticky="nsew")
-                text_label_age = ttk.Label(frame, text="AGE", width=20)
+                text_label_age = ttk.Label(frame, text="AGE", font=("Helvetica", 28))
                 text_label_age.grid(row=1, column=0, sticky="nsew")
 
-                text_label_gender = ttk.Label(frame, text="GENDER", width=20)
+                text_label_gender = ttk.Label(frame, text="GENDER", font=("Helvetica", 28))
                 text_label_gender.grid(row=2, column=0, sticky="nsew")
 
-                text_label_emotion = ttk.Label(frame, text="EMOTION", width=20)
+                text_label_emotion = ttk.Label(frame, text="EMOTION", font=("Helvetica", 28))
                 text_label_emotion.grid(row=3, column=0, sticky="nsew")
 
                 # load and display the image
@@ -120,5 +127,4 @@ class View(object):
         self.window.mainloop()
 
     def on_close(self):
-
         self.window.destroy()
