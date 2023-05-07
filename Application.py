@@ -11,8 +11,7 @@ def process_frames(q):
     while True:
         data = q.get()
 
-        cv2.imwrite("Pictures/" + str(uuid.uuid4()) + ".jpeg", data)
-
+        cv2.imwrite("Pictures/raw" + str(uuid.uuid4()) + ".jpeg", data)
 
 
 if __name__ == "__main__":
@@ -23,7 +22,7 @@ if __name__ == "__main__":
     video_sources = [0, 0]
     video_feeds = []
 
-    TIME_TO_SCREENSHOT_SECS = 5
+    TIME_TO_SCREENSHOT_SECS = 30
 
     p_queue = Queue()
     p_process = Process(target=process_frames, args=(p_queue,))

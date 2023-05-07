@@ -12,7 +12,6 @@ from datetime import datetime
 class Model:
     def detect_faces(self, frame):
 
-
         detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv',
                                                align=False)
         for face in detectedFaces:

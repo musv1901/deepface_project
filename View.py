@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import ImageTk, Image
+
 
 class View(object):
 
@@ -37,6 +39,7 @@ class View(object):
         self.video_box_height = self.screen_height // 2
 
         self.create_camera_feeds()
+        self.create_img_wall()
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -48,6 +51,22 @@ class View(object):
         canvas2 = tk.Canvas(self.tab1, width=self.video_box_width, height=self.video_box_height)
         canvas2.pack(side="right", anchor="nw")
         self.canvases.append(canvas2)
+
+    def create_img_wall(self):
+
+        img = Image.open(r"Pictures/480_620_cropped/b1c0bc5b-03c0-4fa7-b93e-b1bebd123b8bupscale_resize_.jpeg")
+        img1 = img.resize((240, 310))
+
+        for row in range(3):
+            for col in range(5):
+                frame = ttk.Frame(self.tab2, width=240, height=310)
+                frame.grid(row=row, column=col)
+                label = ttk.Label(frame)
+                label.pack()
+
+                image = ImageTk.PhotoImage(img1)
+                label.configure(image=image)
+                label.image = image
 
     def bind_commands(self):
         self.btn.config(command=self.callbacks['import'])
