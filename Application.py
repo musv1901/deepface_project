@@ -12,12 +12,11 @@ def process_frames(q):
     while True:
         data = q.get()
 
-        for cam in data:
-            cv2.imwrite("Pictures/raw" + str(uuid.uuid4()) + ".jpeg", cam)
+        #for cam in data:
+        #    cv2.imwrite("Pictures/raw" + str(uuid.uuid4()) + ".jpeg", cam)
 
 
 def take_screenshot():
-
     screenshots = []
 
     for cam in video_feeds:
@@ -25,7 +24,6 @@ def take_screenshot():
         screenshots.append(frame)
 
     return screenshots
-
 
 
 if __name__ == "__main__":
@@ -53,10 +51,11 @@ if __name__ == "__main__":
     while True:
         if time.time() - start > TIME_TO_SCREENSHOT_SECS:
             p_queue.put(take_screenshot())
+            controller.update_wall()
             start = time.time()
         for i, feed in enumerate(video_feeds):
             ret, frame = feed.read()
             if ret:
-                box = model.detect_faces(frame)
+                box = model.detect_faces_yolo(frame)
                 controller.update_view(box, i)
             view.window.update()

@@ -1,3 +1,4 @@
+import json
 import tkinter as tk
 from PIL import Image
 
@@ -21,4 +22,9 @@ class Controller:
             self.view.canvases[i].image = img
 
     def update_wall(self):
-        self.view.refresh_img_wall()
+
+        with open(r"json/persons.json", "r") as file:
+            p_dict = json.load(file)
+
+        print(p_dict["persons"])
+        self.view.refresh_img_wall(p_dict["persons"])

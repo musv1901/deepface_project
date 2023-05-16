@@ -5,6 +5,8 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 import os
 
+from image2base64.converters import base64_to_rgb
+
 
 class View(object):
 
@@ -41,7 +43,7 @@ class View(object):
         self.video_box_height = self.screen_height // 2
 
         self.create_camera_feeds()
-        self.refresh_img_wall()
+        #self.refresh_img_wall()
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -54,7 +56,7 @@ class View(object):
         canvas2.pack(side="right", anchor="nw")
         self.canvases.append(canvas2)
 
-    def refresh_img_wall(self):
+    def refresh_img_wall(self, p_list):
 
         for child in self.tab2.winfo_children():
             for subchild in child.winfo_children():
@@ -67,8 +69,8 @@ class View(object):
         # img = Image.open(r"Pictures/480_620_cropped/b1c0bc5b-03c0-4fa7-b93e-b1bebd123b8bupscale_resize_.jpeg")
         # img1 = img.resize((120 * 2, 155 * 2))
 
-        folder = os.listdir(path)
-        amount = len(folder)
+        #folder = os.listdir(path)
+        amount = len(p_list)
         count = 0
 
         # create a frame for each row
@@ -106,7 +108,7 @@ class View(object):
                 text_label_emotion.grid(row=3, column=0, sticky="nsew")
 
                 # load and display the image
-                img = Image.open(os.path.join(path, folder[count]))
+                img = img = base64_to_rgb(p_list[count]["cropped_face"], "PIL")
                 img = img.resize((240, 310))
                 img_tk = ImageTk.PhotoImage(img)
                 img_label.configure(image=img_tk)
