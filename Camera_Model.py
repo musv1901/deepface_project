@@ -9,7 +9,7 @@ from datetime import datetime
 import numpy as np
 
 
-class Model:
+class CameraModel:
 
     def __init__(self):
         protoFile = "Models/deploy.prototxt.txt"
@@ -34,7 +34,7 @@ class Model:
 
                 cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 255, 0), 2)
 
-        print(str(time.time() - start))
+        # print(str(time.time() - start))
         return Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
     def get_cropped_face(face_dict, frame):

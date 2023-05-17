@@ -1,0 +1,2 @@
+class WallModel:
+    print("Test")

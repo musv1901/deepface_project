@@ -1,36 +1,18 @@
 import math
-import uuid
 import tkinter as tk
 from tkinter import ttk
-from PIL import ImageTk, Image
-import os
-
+from PIL import ImageTk
 from image2base64.converters import base64_to_rgb
 
 
-class View(object):
+class WallView(object):
 
     def __init__(self):
-        self.callbacks = {}
         self._show_gui()
 
     def _show_gui(self):
         self.window = tk.Tk()
-        self.window.title("GUI")
-
-        self.canvases = []
-
-        # Create a Notebook widget
-        self.notebook = ttk.Notebook(self.window)
-        self.notebook.pack(fill="both", expand=True)
-
-        # Create a separate Frame for each tab
-        self.tab1 = ttk.Frame(self.notebook)
-        self.tab2 = ttk.Frame(self.notebook)
-
-        # Add the tabs to the Notebook
-        self.notebook.add(self.tab1, text="Live Feed")
-        self.notebook.add(self.tab2, text="Wall")
+        self.window.title("Photo Wall")
 
         # Get the dimensions of the screen
         self.screen_width = self.window.winfo_screenwidth()
@@ -39,43 +21,19 @@ class View(object):
         # Set the size of the window to the maximum available size
         self.window.geometry("{}x{}".format(self.screen_width, self.screen_height))
 
-        self.video_box_width = self.screen_width // 2
-        self.video_box_height = self.screen_height // 2
-
-        self.create_camera_feeds()
-        #self.refresh_img_wall()
-
-        self.window.protocol("WM_DELETE_WINDOW", self.on_close)
-
-    def create_camera_feeds(self):
-        canvas1 = tk.Canvas(self.tab1, width=self.video_box_width, height=self.video_box_height)
-        canvas1.pack(side="left", anchor="nw")
-        self.canvases.append(canvas1)
-
-        canvas2 = tk.Canvas(self.tab1, width=self.video_box_width, height=self.video_box_height)
-        canvas2.pack(side="right", anchor="nw")
-        self.canvases.append(canvas2)
-
     def refresh_img_wall(self, p_list):
 
-        for child in self.tab2.winfo_children():
+        for child in self.window.winfo_children():
             for subchild in child.winfo_children():
                 subchild.destroy()
             child.destroy()
 
-
-        path = r"Pictures/480_620_cropped"
-
-        # img = Image.open(r"Pictures/480_620_cropped/b1c0bc5b-03c0-4fa7-b93e-b1bebd123b8bupscale_resize_.jpeg")
-        # img1 = img.resize((120 * 2, 155 * 2))
-
-        #folder = os.listdir(path)
         amount = len(p_list)
         count = 0
 
         # create a frame for each row
         for row in range(math.ceil(amount / 7)):
-            row_frame = ttk.Frame(self.tab2, padding=10)
+            row_frame = ttk.Frame(self.window, padding=10)
             row_frame.grid(row=row, column=0, sticky="ew")
             row_frame.columnconfigure(0, weight=1)
 
@@ -98,17 +56,17 @@ class View(object):
                 # create labels for the image and text
                 img_label = ttk.Label(frame)
                 img_label.grid(row=0, column=0, sticky="nsew")
-                text_label_age = ttk.Label(frame, text="AGE", font=("Helvetica", 28))
+                text_label_age = ttk.Label(frame, text=str(p_list[count]["age"]), font=("Helvetica", 28))
                 text_label_age.grid(row=1, column=0, sticky="nsew")
 
-                text_label_gender = ttk.Label(frame, text="GENDER", font=("Helvetica", 28))
+                text_label_gender = ttk.Label(frame, text=p_list[count]["gender"], font=("Helvetica", 28))
                 text_label_gender.grid(row=2, column=0, sticky="nsew")
 
-                text_label_emotion = ttk.Label(frame, text="EMOTION", font=("Helvetica", 28))
+                text_label_emotion = ttk.Label(frame, text=p_list[count]["emotion"], font=("Helvetica", 28))
                 text_label_emotion.grid(row=3, column=0, sticky="nsew")
 
                 # load and display the image
-                img = img = base64_to_rgb(p_list[count]["cropped_face"], "PIL")
+                img = img = base64_to_rgb(p_list[count]["cropped_img"], "PIL")
                 img = img.resize((240, 310))
                 img_tk = ImageTk.PhotoImage(img)
                 img_label.configure(image=img_tk)
@@ -118,12 +76,6 @@ class View(object):
                 count += 1
                 if count == amount:
                     break
-
-    def bind_commands(self):
-        self.btn.config(command=self.callbacks['import'])
-
-    def add_callback(self, key, method):
-        self.callbacks[key] = method
 
     def run(self):
         self.window.mainloop()
