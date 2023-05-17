@@ -56,6 +56,6 @@ if __name__ == "__main__":
         for i, feed in enumerate(video_feeds):
             ret, frame = feed.read()
             if ret:
-                box = model.detect_faces_yolo(frame)
+                box = model.detect_faces_opencv()
                 controller.update_view(box, i)
             view.window.update()

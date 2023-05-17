@@ -4,41 +4,38 @@ from deepface import DeepFace
 import cv2
 from PIL import Image, ImageTk
 from image2base64.converters import base64_to_rgb, rgb2base64
-from confluent_kafka import Producer, Consumer
 import csv
 from datetime import datetime
-import torch
 import numpy as np
 
 
 class Model:
 
     def __init__(self):
-        self.yolo_model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
-        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.yolo_model = self.yolo_model.to(self.device)
+        protoFile = "Models/deploy.prototxt.txt"
+        modelFile = "Models/res10_300x300_ssd_iter_140000.caffemodel"
+        self.net = cv2.dnn.readNetFromCaffe(protoFile, modelFile)
 
-
-    def detect_faces(self, frame):
+    def detect_faces_opencv(self, frame):
         start = time.time()
+        (h, w) = frame.shape[:2]
 
-        detectedFaces = DeepFace.extract_faces(img_path=frame, enforce_detection=False, detector_backend='opencv',
-                                               align=False)
-        for face in detectedFaces:
-            if face['confidence'] > 9:
-                x = face['facial_area']['x']
-                y = face['facial_area']['y']
-                w = face['facial_area']['w']
-                h = face['facial_area']['h']
+        blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
 
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+        self.net.setInput(blob)
+        detections = self.net.forward()
 
-        print(time.time() - start)
+        for i in range(0, detections.shape[2]):
+            confidence = detections[0, 0, i, 2]
+
+            if confidence > 0.5:
+                box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+                (startX, startY, endX, endY) = box.astype("int")
+
+                cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 255, 0), 2)
+
+        print(str(time.time() - start))
         return Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
-
-    def detect_faces_mediapipe(self, frame):
-
-
 
     def get_cropped_face(face_dict, frame):
         x = face_dict.get('region')['x']
@@ -105,6 +102,3 @@ class Model:
         with open('stats_history.csv', 'a') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=field_names)
             writer.writerow(pers_stats)
-
-
-
