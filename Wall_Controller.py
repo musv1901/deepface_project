@@ -15,5 +15,6 @@ class WallController:
         }
 
     def update_wall(self):
+        print("Update")
         response = requests.get(self.db.get("url"), self.db.get("headers"))
-        #self.view.refresh_img_wall(response.json()["items"])
+        self.view.refresh_img_wall(response.json()["items"])
