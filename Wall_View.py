@@ -41,6 +41,10 @@ class WallView(object):
         for child in self.image_wall_frame.winfo_children():
             child.destroy()
 
+        for e in p_list:
+            if e["cropped_img"] is None:
+                p_list.remove(e)
+
         amount = len(p_list)
         count = 0
 
@@ -55,38 +59,37 @@ class WallView(object):
 
             # create frames for each image and text
             for col in range(num_images_per_row):
-                if p_list[count]["cropped_img"] is not None:
-                    frame = ttk.Frame(row_frame, padding=self.image_padding)
-                    # Create a ttk.Style object
-                    style = ttk.Style()
+                frame = ttk.Frame(row_frame, padding=self.image_padding)
+                # Create a ttk.Style object
+                style = ttk.Style()
 
-                    # Set the style properties for the Frame widget
-                    style.configure("MyFrame.TFrame", borderwidth=3, relief="solid")
+                # Set the style properties for the Frame widget
+                style.configure("MyFrame.TFrame", borderwidth=3, relief="solid")
 
-                    # Apply the style to the Frame widget
-                    frame.configure(style="MyFrame.TFrame")
+                # Apply the style to the Frame widget
+                frame.configure(style="MyFrame.TFrame")
 
-                    frame.grid(row=0, column=col, sticky="nsew")
-                    frame.columnconfigure(0, weight=1)
-                    frame.rowconfigure(0, weight=1)
+                frame.grid(row=0, column=col, sticky="nsew")
+                frame.columnconfigure(0, weight=1)
+                frame.rowconfigure(0, weight=1)
 
-                    # create labels for the image and text
-                    img_label = ttk.Label(frame)
-                    img_label.grid(row=0, column=0, sticky="nsew")
-                    text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Helvetica", 18))
-                    text_label_age.grid(row=1, column=0, sticky="nsew")
+                # create labels for the image and text
+                img_label = ttk.Label(frame)
+                img_label.grid(row=0, column=0, sticky="nsew")
+                text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Helvetica", 18))
+                text_label_age.grid(row=1, column=0, sticky="nsew")
 
-                    text_label_gender = ttk.Label(frame, text=p_list[count]["gender"], font=("Helvetica", 18))
-                    text_label_gender.grid(row=2, column=0, sticky="nsew")
+                text_label_gender = ttk.Label(frame, text=p_list[count]["gender"], font=("Helvetica", 18))
+                text_label_gender.grid(row=2, column=0, sticky="nsew")
 
-                    text_label_emotion = ttk.Label(frame, text=p_list[count]["emotion"], font=("Helvetica", 18))
-                    text_label_emotion.grid(row=3, column=0, sticky="nsew")
+                text_label_emotion = ttk.Label(frame, text=p_list[count]["emotion"], font=("Helvetica", 18))
+                text_label_emotion.grid(row=3, column=0, sticky="nsew")
 
-                    # load and display the image
-                    img = base64_to_rgb(p_list[count]["cropped_img"], "PIL")
-                    img_tk = ImageTk.PhotoImage(img)
-                    img_label.configure(image=img_tk)
-                    img_label.image = img_tk
+                # load and display the image
+                img = base64_to_rgb(p_list[count]["cropped_img"], "PIL")
+                img_tk = ImageTk.PhotoImage(img)
+                img_label.configure(image=img_tk)
+                img_label.image = img_tk
 
                 # update the count and load the next image
                 count += 1
