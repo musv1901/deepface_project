@@ -76,14 +76,18 @@ class WallView(object):
                 # create labels for the image and text
                 img_label = ttk.Label(frame)
                 img_label.grid(row=0, column=0, sticky="nsew")
+
+                entry_name = ttk.Entry(frame)
+                entry_name.grid(row=1, column=0, sticky="nsew")
+
                 text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Helvetica", 18))
-                text_label_age.grid(row=1, column=0, sticky="nsew")
+                text_label_age.grid(row=2, column=0, sticky="nsew")
 
                 text_label_gender = ttk.Label(frame, text=p_list[count]["gender"], font=("Helvetica", 18))
-                text_label_gender.grid(row=2, column=0, sticky="nsew")
+                text_label_gender.grid(row=3, column=0, sticky="nsew")
 
                 text_label_emotion = ttk.Label(frame, text=p_list[count]["emotion"], font=("Helvetica", 18))
-                text_label_emotion.grid(row=3, column=0, sticky="nsew")
+                text_label_emotion.grid(row=4, column=0, sticky="nsew")
 
                 # load and display the image
                 img = base64_to_rgb(p_list[count]["cropped_img"], "PIL")

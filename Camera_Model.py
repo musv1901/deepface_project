@@ -1,12 +1,21 @@
+import uuid
 import json
 import time
-from deepface import DeepFace
+from confluent_kafka import Producer
 import cv2
 from PIL import Image, ImageTk
 from image2base64.converters import base64_to_rgb, rgb2base64
 import csv
 from datetime import datetime
 import numpy as np
+
+
+def delivery_report(errmsg, msg):
+    if errmsg is not None:
+        print("Delivery failed for Message: {} : {}".format(msg.key(), errmsg))
+        return
+    print('Message: {} successfully produced to Topic: {} Partition: [{}] at offset {}'.format(
+        msg.key(), msg.topic(), msg.partition(), msg.offset()))
 
 
 class CameraModel:
@@ -16,8 +25,9 @@ class CameraModel:
         modelFile = "Models/res10_300x300_ssd_iter_140000.caffemodel"
         self.net = cv2.dnn.readNetFromCaffe(protoFile, modelFile)
 
+        self.producer = Producer({'bootstrap.servers': '192.168.70.40:9092'})
+
     def detect_faces_opencv(self, frame):
-        start = time.time()
         (h, w) = frame.shape[:2]
 
         blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
@@ -34,35 +44,18 @@ class CameraModel:
 
                 cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 255, 0), 2)
 
-        # print(str(time.time() - start))
         return Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
-    def get_cropped_face(face_dict, frame):
-        x = face_dict.get('region')['x']
-        y = face_dict.get('region')['y']
-        w = face_dict.get('region')['w']
-        h = face_dict.get('region')['h']
+    def to_analyze(self, video_feeds):
+        screenshots = {"screens": []}
 
-        cropped_nd = frame[y:y + h, x:x + w]
-        return Image.fromarray(cropped_nd)
+        for screen in video_feeds:
+            base64 = rgb2base64(screen.read()[1], "JPEG")
+            screenshots["screens"].append(base64)
 
-    def is_present(cropped_face):
-        with open("persons_history.json", "r") as file:
-            data = json.load(file)
-
-            for element in data['persons']:
-
-                img = base64_to_rgb(element.get('cropped_img_base'), "PIL")
-
-                img.save("temp1.jpeg", "JPEG")
-                cropped_face.save("temp2.jpeg", "JPEG")
-                dict = DeepFace.verify(img1_path="temp1.jpeg", img2_path="temp2.jpeg", detector_backend="mtcnn",
-                                       enforce_detection=False)
-
-                if dict['verified']:
-                    return True
-
-            return False
+        self.producer.produce(topic="toAnalyze", key=str(uuid.uuid4()), value=json.dumps(screenshots),
+                              callback=delivery_report)
+        self.producer.flush()
 
     def get_persons_statistics():
         sum_age = 0
