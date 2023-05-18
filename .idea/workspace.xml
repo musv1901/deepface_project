@@ -4,10 +4,7 @@
     <list default="true" id="0afe18ce-cfe6-42af-8966-dfd4c2ea38af" name="Changes" comment="changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Camera_App.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera_App.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Camera_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera_Model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wall_Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Wall_Controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wall_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Wall_Model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wall_View.py" beforeDir="false" afterPath="$PROJECT_DIR$/Wall_View.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Camera_Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera_Controller.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,7 +278,7 @@
       <workItem from="1684358874211" duration="2177000" />
       <workItem from="1684393185127" duration="8057000" />
       <workItem from="1684405173971" duration="1422000" />
-      <workItem from="1684423917453" duration="1239000" />
+      <workItem from="1684423917453" duration="1903000" />
     </task>
     <task id="LOCAL-00001" summary="first one">
       <created>1681751942401</created>
@@ -542,7 +539,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684404214698</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="changes">
+      <created>1684425185860</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1684425185860</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -582,7 +586,7 @@
     <SUITE FILE_PATH="coverage/deepface_project$stream.coverage" NAME="stream Coverage Results" MODIFIED="1683928915431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$YOLO_Test.coverage" NAME="YOLO_Test Coverage Results" MODIFIED="1684088701917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$Controller.coverage" NAME="Controller Coverage Results" MODIFIED="1683230372458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/deepface_project$Camera_App.coverage" NAME="Camera_App Coverage Results" MODIFIED="1684425145447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$Camera_App.coverage" NAME="Camera_App Coverage Results" MODIFIED="1684425827308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$GUI.coverage" NAME="GUI Coverage Results" MODIFIED="1683220594865" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$kafka_test.coverage" NAME="kafka_test Coverage Results" MODIFIED="1683828748629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$deepface_project.coverage" NAME="main Coverage Results" MODIFIED="1681756438536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

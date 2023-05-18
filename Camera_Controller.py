@@ -9,7 +9,9 @@ class CameraController:
         self.view = view
 
     def update_view(self, frame, i):
-        img = ImageTk.PhotoImage(frame.resize(
+
+        box = self.model.detect_faces_opencv(frame)
+        img = ImageTk.PhotoImage(box.resize(
             (self.view.video_box_width, self.view.video_box_height), reducing_gap=1.0))
 
         if img is not None:

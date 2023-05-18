@@ -30,6 +30,5 @@ if __name__ == "__main__":
                 start = time.time()
             ret, frame = feed.read()
             if ret:
-                box = model.detect_faces_opencv(frame)
-                controller.update_view(box, i)
+                controller.update_view(frame, i)
             view.window.update()
