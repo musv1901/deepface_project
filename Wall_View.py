@@ -11,7 +11,7 @@ class WallView(object):
         self.image_width = 240
         self.image_padding = 10
 
-        self.callback_queue = []
+        self.refresh_stop = False
         self._show_gui()
 
     def _show_gui(self):
@@ -22,20 +22,20 @@ class WallView(object):
         self.screen_height = self.window.winfo_screenheight()
         self.window.geometry("{}x{}".format(self.screen_width, self.screen_height))
 
-        canvas = tk.Canvas(self.window)
-        canvas.pack(side="left", fill="both", expand=True)
+        self.canvas = tk.Canvas(self.window)
+        self.canvas.pack(side="left", fill="both", expand=True)
 
-        scrollbar = tk.Scrollbar(self.window, orient="vertical", command=canvas.yview)
+        scrollbar = tk.Scrollbar(self.window, orient="vertical", command=self.canvas.yview)
         scrollbar.pack(side="right", fill="y")
 
-        canvas.configure(yscrollcommand=scrollbar.set)
-        canvas.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-        canvas.bind("<MouseWheel>", lambda e: canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+        self.canvas.configure(yscrollcommand=scrollbar.set)
+        self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+        self.canvas.bind_all("<MouseWheel>", self.on_mousewheel)
 
-        image_wall_frame = tk.Frame(canvas)
-        canvas.create_window((0, 0), window=image_wall_frame, anchor="nw")
+        image_wall_frame = tk.Frame(self.canvas)
+        self.canvas.create_window((0, 0), window=image_wall_frame, anchor="nw")
 
-        scrollbar.config(command=canvas.yview)
+        scrollbar.config(command=self.canvas.yview)
         self.image_wall_frame = image_wall_frame
 
     def refresh_img_wall(self, p_list):
@@ -71,6 +71,9 @@ class WallView(object):
                 img_label.grid(row=0, column=0, sticky="nsew")
 
                 entry_name = ttk.Entry(frame)
+                entry_name.insert(0, "Enter a name")
+                entry_name.bind("<FocusIn>", self.remove_temp_text)
+                entry_name.bind("<FocusOut>", self.insert_temp_text)
                 entry_name.grid(row=1, column=0, sticky="nsew")
 
                 text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Helvetica", 18))
@@ -90,6 +93,17 @@ class WallView(object):
                 count += 1
                 if count == amount:
                     break
+
+    def on_mousewheel(self, event):
+        self.canvas.yview_scroll(-int(event.delta / 120), "units")
+
+    def remove_temp_text(self, event):
+        if event.widget.get() == "Enter a name":
+            event.widget.delete(0, "end")
+
+    def insert_temp_text(self, event):
+        if event.widget.get() == "":
+            event.widget.insert(0, "Enter a name")
 
     def run(self):
         self.window.mainloop()
