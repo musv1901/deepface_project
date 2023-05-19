@@ -1,14 +1,12 @@
 import time
 from Camera_View import CameraView
-from Camera_Controller import CameraController
 from Camera_Model import CameraModel
 import cv2
 
 
 if __name__ == "__main__":
-    model = CameraModel()
     view = CameraView()
-    controller = CameraController(model=model, view=view)
+    model = CameraModel()
 
     video_sources = [0, 0]
     video_feeds = []
@@ -21,6 +19,7 @@ if __name__ == "__main__":
         vid.set(cv2.CAP_PROP_FRAME_HEIGHT, view.screen_height / 2)
         vid.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         video_feeds.append(vid)
+    model.to_analyze(video_feeds=video_feeds)
 
     start = time.time()
     while True:
@@ -30,5 +29,6 @@ if __name__ == "__main__":
                 start = time.time()
             ret, frame = feed.read()
             if ret:
-                controller.update_view(frame, i)
+                img = model.detect_faces_opencv(frame)
+                view.update_feeds(img, i)
             view.window.update()

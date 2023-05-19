@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from PIL import ImageTk
+
 
 class CameraView(object):
 
@@ -34,6 +36,14 @@ class CameraView(object):
         canvas2 = tk.Canvas(self.window, width=self.video_box_width, height=self.video_box_height)
         canvas2.pack(side="right", anchor="nw")
         self.canvases.append(canvas2)
+
+    def update_feeds(self, frame, i):
+        img = ImageTk.PhotoImage(frame.resize(
+            (self.video_box_width, self.video_box_height), reducing_gap=1.0))
+
+        if img is not None:
+            self.canvases[i].create_image(0, 0, image=img, anchor=tk.NW)
+            self.canvases[i].image = img
 
     def run(self):
         self.window.mainloop()

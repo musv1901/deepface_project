@@ -8,6 +8,7 @@ from image2base64.converters import base64_to_rgb, rgb2base64
 import csv
 from datetime import datetime
 import numpy as np
+from deepface import DeepFace
 
 
 def delivery_report(errmsg, msg):
@@ -56,42 +57,3 @@ class CameraModel:
         self.producer.produce(topic="toAnalyze", key=str(uuid.uuid4()), value=json.dumps(screenshots),
                               callback=delivery_report)
         self.producer.flush()
-
-    def get_persons_statistics():
-        sum_age = 0
-        male_count = 0
-
-        with open("persons_present.json", "r") as file:
-            data = json.load(file)
-
-        for element in data['persons']:
-            sum_age = sum_age + float(element.get("age"))
-
-            if element.get("gender") == "Man":
-                male_count = male_count + 1
-
-        avg_age = sum_age / len(data['persons'])
-        male_percentage = float(male_count / len(data['persons'])) * 100
-        woman_percentage = 100 - male_percentage
-
-        timestamp = time.time()
-        date_time = datetime.fromtimestamp(timestamp)
-        str_date_time = date_time.strftime("%d-%m-%Y %H:%M:%S")
-
-        pers_stats = {
-            "timestamp": str_date_time,
-            "avg_age": avg_age,
-            "male_percentage": male_percentage,
-            "woman_percentage": woman_percentage
-        }
-
-        # create_timestamp(pers_stats)
-
-        return pers_stats
-
-    def create_timestamp(pers_stats):
-        field_names = ['timestamp', 'avg_age', 'male_percentage', 'woman_percentage']
-
-        with open('stats_history.csv', 'a') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=field_names)
-            writer.writerow(pers_stats)
