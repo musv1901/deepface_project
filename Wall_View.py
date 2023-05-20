@@ -9,7 +9,8 @@ from functools import partial
 
 class WallView(object):
 
-    def __init__(self):
+    def __init__(self, model):
+        self.model = model
         self.image_width = 240
         self.image_padding = 10
         self.start_time = time.time()
@@ -70,19 +71,25 @@ class WallView(object):
                 img_label = ttk.Label(frame)
                 img_label.grid(row=0, column=0, sticky="nsew")
 
-                entry_name = ttk.Entry(frame)
-                entry_name.insert(0, "Enter a name")
-                entry_name.bind("<FocusIn>", self.remove_temp_text)
-                entry_name.bind("<FocusOut>", partial(self.on_entry_focus_out, entry_name, p_list[count]))
+                entry_name = ttk.Entry(frame, font=("Segoe UI", 16))
+                if not p_list[count]["name"]:
+                    entry_name.insert(0, "Enter a name")
+                else:
+                    entry_name.insert(0, p_list[count]["name"])
+                    entry_name.config(state="disabled")
+                entry_name.bind("<FocusIn>", self.on_entry_focus_in)
+                entry_name.bind("<FocusOut>",
+                                lambda event, entry=entry_name, person=p_list[count]: self.on_entry_focus_out(entry,
+                                                                                                              person))
                 entry_name.grid(row=1, column=0, sticky="nsew")
 
-                text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Helvetica", 18))
+                text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Segoe UI", 16))
                 text_label_age.grid(row=2, column=0, sticky="nsew")
 
-                text_label_gender = ttk.Label(frame, text=p_list[count]["gender"], font=("Helvetica", 18))
+                text_label_gender = ttk.Label(frame, text=p_list[count]["gender"], font=("Segoe UI", 16))
                 text_label_gender.grid(row=3, column=0, sticky="nsew")
 
-                text_label_emotion = ttk.Label(frame, text=p_list[count]["emotion"], font=("Helvetica", 18))
+                text_label_emotion = ttk.Label(frame, text=p_list[count]["emotion"], font=("Segoe UI", 16))
                 text_label_emotion.grid(row=4, column=0, sticky="nsew")
 
                 img = base64_to_rgb(p_list[count]["cropped_img"], "PIL")
@@ -97,7 +104,7 @@ class WallView(object):
     def on_mousewheel(self, event):
         self.canvas.yview_scroll(-int(event.delta / 120), "units")
 
-    def remove_temp_text(self, event):
+    def on_entry_focus_in(self, event):
         self.refresh_stop = True
         if event.widget.get() == "Enter a name":
             event.widget.delete(0, "end")
@@ -108,7 +115,9 @@ class WallView(object):
         else:
             p_id = person["id"]
             p_name = entry.get()
-
+            entry.config(state="disabled")
+            self.model.insert_name_db(p_id, p_name)
+            self.start_time = time.time()
 
         self.refresh_stop = False
 
