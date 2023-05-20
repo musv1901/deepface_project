@@ -1,8 +1,10 @@
 import math
+import time
 import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk
 from image2base64.converters import base64_to_rgb
+from functools import partial
 
 
 class WallView(object):
@@ -10,12 +12,14 @@ class WallView(object):
     def __init__(self):
         self.image_width = 240
         self.image_padding = 10
+        self.start_time = time.time()
 
         self.refresh_stop = False
         self._show_gui()
 
     def _show_gui(self):
         self.window = tk.Tk()
+        self.window.bind("<Button-1>", self.set_focus)
         self.window.title("Photo Wall")
 
         self.screen_width = self.window.winfo_screenwidth()
@@ -43,10 +47,6 @@ class WallView(object):
         for child in self.image_wall_frame.winfo_children():
             child.destroy()
 
-        for e in p_list:
-            if e["cropped_img"] is None:
-                p_list.remove(e)
-
         amount = len(p_list)
         count = 0
 
@@ -73,7 +73,7 @@ class WallView(object):
                 entry_name = ttk.Entry(frame)
                 entry_name.insert(0, "Enter a name")
                 entry_name.bind("<FocusIn>", self.remove_temp_text)
-                entry_name.bind("<FocusOut>", self.insert_temp_text)
+                entry_name.bind("<FocusOut>", partial(self.on_entry_focus_out, entry_name, p_list[count]))
                 entry_name.grid(row=1, column=0, sticky="nsew")
 
                 text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Helvetica", 18))
@@ -98,12 +98,22 @@ class WallView(object):
         self.canvas.yview_scroll(-int(event.delta / 120), "units")
 
     def remove_temp_text(self, event):
+        self.refresh_stop = True
         if event.widget.get() == "Enter a name":
             event.widget.delete(0, "end")
 
-    def insert_temp_text(self, event):
-        if event.widget.get() == "":
-            event.widget.insert(0, "Enter a name")
+    def on_entry_focus_out(self, entry, person):
+        if entry.get() == "":
+            entry.insert(0, "Enter a name")
+        else:
+            p_id = person["id"]
+            p_name = entry.get()
+
+
+        self.refresh_stop = False
+
+    def set_focus(self, event):
+        event.widget.focus_set()
 
     def run(self):
         self.window.mainloop()

@@ -8,11 +8,9 @@ if __name__ == "__main__":
     p_list = model.get_db_entries()
     view.refresh_img_wall(p_list)
 
-    start = time.time()
     while True:
-        if int(time.time() - start) > 10:
+        if int(time.time() - view.start_time) > 10 and not view.refresh_stop:
             p_list = model.get_db_entries()
             view.refresh_img_wall(p_list)
-            start = time.time()
+            view.start_time = time.time()
         view.window.update()
-
