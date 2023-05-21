@@ -1,4 +1,7 @@
 import uuid
+
+import requests
+
 import json
 import time
 from confluent_kafka import Producer
@@ -27,6 +30,15 @@ class CameraModel:
         self.net = cv2.dnn.readNetFromCaffe(protoFile, modelFile)
 
         self.producer = Producer({'bootstrap.servers': '192.168.70.40:9092'})
+
+        self.db = {
+            "return_statistics": "https://gc7da7be5da2e70-g833jueqvvi5nhsa.adb.eu-frankfurt-1.oraclecloudapps.com"
+                                 "/ords/admin/operations/return_statistics",
+            "headers": {
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            }
+        }
 
     def detect_faces_opencv(self, frame):
         (h, w) = frame.shape[:2]
@@ -57,3 +69,8 @@ class CameraModel:
         self.producer.produce(topic="toAnalyze", key=str(uuid.uuid4()), value=json.dumps(screenshots),
                               callback=delivery_report)
         self.producer.flush()
+
+    def persons_statistics(self):
+        response = requests.get(self.db.get("return_statistics"), self.db.get("headers"))
+
+        return response.json()["items"]
