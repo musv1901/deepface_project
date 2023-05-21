@@ -6,7 +6,8 @@ from PIL import ImageTk
 class CameraView(object):
 
     def __init__(self):
-        self.callbacks = {}
+        self.text_label_sum = None
+        self.person_sum_label = None
         self._show_gui()
 
     def _show_gui(self):
@@ -26,6 +27,7 @@ class CameraView(object):
         self.video_box_height = self.screen_height // 2
 
         self.create_camera_feeds()
+        self.create_information_elements()
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
 
     def create_camera_feeds(self):
@@ -44,6 +46,16 @@ class CameraView(object):
         if img is not None:
             self.canvases[i].create_image(0, 0, image=img, anchor=tk.NW)
             self.canvases[i].image = img
+
+    def create_information_elements(self):
+        self.person_sum_label = tk.Label(self.window, text="0", font=("Segoe UI", 22))
+        self.person_sum_label.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
+
+        self.text_label_sum = tk.Label(self.window, text="persons in the room", font=("Segoe UI", 22))
+        self.text_label_sum.place(relx=0.55, rely=0.6, anchor=tk.CENTER, x=self.person_sum_label.winfo_width())
+
+    def set_person_sum_label(self, face_count):
+        self.person_sum_label.config(text=face_count)
 
     def run(self):
         self.window.mainloop()

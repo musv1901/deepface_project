@@ -19,16 +19,19 @@ if __name__ == "__main__":
         vid.set(cv2.CAP_PROP_FRAME_HEIGHT, view.screen_height / 2)
         vid.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         video_feeds.append(vid)
-    model.to_analyze(video_feeds=video_feeds)
-
+    #model.to_analyze(video_feeds=video_feeds)
+    view.window.update()
     start = time.time()
     while True:
+        face_count_sum = 0
         for i, feed in enumerate(video_feeds):
             if int(time.time() - start) > TIME_TO_SCREENSHOT:
-                model.to_analyze(video_feeds=video_feeds)
+                #model.to_analyze(video_feeds=video_feeds)
                 start = time.time()
             ret, frame = feed.read()
             if ret:
-                img = model.detect_faces_opencv(frame)
+                img, face_count = model.detect_faces_opencv(frame)
                 view.update_feeds(img, i)
+                face_count_sum += face_count
             view.window.update()
+        view.set_person_sum_label(face_count_sum)

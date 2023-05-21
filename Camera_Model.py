@@ -8,10 +8,7 @@ from confluent_kafka import Producer
 import cv2
 from PIL import Image, ImageTk
 from image2base64.converters import base64_to_rgb, rgb2base64
-import csv
-from datetime import datetime
 import numpy as np
-from deepface import DeepFace
 
 
 def delivery_report(errmsg, msg):
@@ -29,7 +26,7 @@ class CameraModel:
         modelFile = "Models/res10_300x300_ssd_iter_140000.caffemodel"
         self.net = cv2.dnn.readNetFromCaffe(protoFile, modelFile)
 
-        self.producer = Producer({'bootstrap.servers': '192.168.70.40:9092'})
+        # self.producer = Producer({'bootstrap.servers': '192.168.70.40:9092'})
 
         self.db = {
             "return_statistics": "https://gc7da7be5da2e70-g833jueqvvi5nhsa.adb.eu-frankfurt-1.oraclecloudapps.com"
@@ -41,6 +38,8 @@ class CameraModel:
         }
 
     def detect_faces_opencv(self, frame):
+        start = time.time()
+        face_count = 0
         (h, w) = frame.shape[:2]
 
         blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
@@ -56,8 +55,10 @@ class CameraModel:
                 (startX, startY, endX, endY) = box.astype("int")
 
                 cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 255, 0), 2)
+                face_count += 1
 
-        return Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        print(time.time() - start)
+        return Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)), face_count
 
     def to_analyze(self, video_feeds):
         screenshots = {"screens": []}
