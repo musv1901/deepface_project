@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0afe18ce-cfe6-42af-8966-dfd4c2ea38af" name="Changes" comment="add stats.csv">
+    <list default="true" id="0afe18ce-cfe6-42af-8966-dfd4c2ea38af" name="Changes" comment="added stats plots (camera view)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Camera_App.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera_App.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Camera_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera_Model.py" afterDir="false" />
@@ -204,9 +204,9 @@
       <list>
         <item itemvalue="Python.Camera_App" />
         <item itemvalue="Python.plts" />
+        <item itemvalue="Python.Application (1)" />
         <item itemvalue="Python.stats_test" />
         <item itemvalue="Python.Wall_App" />
-        <item itemvalue="Python.Application (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -295,7 +295,8 @@
       <workItem from="1684694198584" duration="2821000" />
       <workItem from="1684780395595" duration="89000" />
       <workItem from="1685356060544" duration="4258000" />
-      <workItem from="1685375939571" duration="5237000" />
+      <workItem from="1685375939571" duration="5411000" />
+      <workItem from="1685382129163" duration="6755000" />
     </task>
     <task id="LOCAL-00001" summary="first one">
       <created>1681751942401</created>
@@ -626,7 +627,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685360281429</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="added stats plots (camera view)">
+      <created>1685381374209</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1685381374209</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -661,16 +669,17 @@
     <MESSAGE value="added insert_name functionality" />
     <MESSAGE value="changes" />
     <MESSAGE value="add stats.csv" />
-    <option name="LAST_COMMIT_MESSAGE" value="add stats.csv" />
+    <MESSAGE value="added stats plots (camera view)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added stats plots (camera view)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/deepface_project$Application.coverage" NAME="Application Coverage Results" MODIFIED="1683617351454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$stream.coverage" NAME="stream Coverage Results" MODIFIED="1683928915431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$YOLO_Test.coverage" NAME="YOLO_Test Coverage Results" MODIFIED="1684088701917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$Controller.coverage" NAME="Controller Coverage Results" MODIFIED="1683230372458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/deepface_project$Camera_App.coverage" NAME="Camera_App Coverage Results" MODIFIED="1685381204711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$Camera_App.coverage" NAME="Camera_App Coverage Results" MODIFIED="1685388496875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$stats_test.coverage" NAME="stats_test Coverage Results" MODIFIED="1685376056346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/deepface_project$plts.coverage" NAME="plts Coverage Results" MODIFIED="1685377965256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$plts.coverage" NAME="plts Coverage Results" MODIFIED="1685388411205" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$GUI.coverage" NAME="GUI Coverage Results" MODIFIED="1683220594865" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$kafka_test.coverage" NAME="kafka_test Coverage Results" MODIFIED="1683828748629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$deepface_project.coverage" NAME="main Coverage Results" MODIFIED="1681756438536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -678,7 +687,7 @@
     <SUITE FILE_PATH="coverage/deepface_project$Wall_App.coverage" NAME="Wall_App Coverage Results" MODIFIED="1684697002882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$main.coverage" NAME="main Coverage Results" MODIFIED="1683053231430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$kafka.coverage" NAME="kafka Coverage Results" MODIFIED="1683742420941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/deepface_project$Application__1_.coverage" NAME="Application (1) Coverage Results" MODIFIED="1684342831481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$Application__1_.coverage" NAME="Application (1) Coverage Results" MODIFIED="1685384155078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$ORACLE_DB.coverage" NAME="ORACLE_DB Coverage Results" MODIFIED="1684060379008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

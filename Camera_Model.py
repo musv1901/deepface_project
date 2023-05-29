@@ -9,6 +9,7 @@ import cv2
 from PIL import Image, ImageTk
 from image2base64.converters import base64_to_rgb, rgb2base64
 import numpy as np
+import pandas as pd
 
 
 def delivery_report(errmsg, msg):
@@ -36,6 +37,8 @@ class CameraModel:
                 "Accept": "application/json"
             }
         }
+
+        self.stats_csv = "data/stats.csv"
 
     def detect_faces_opencv(self, frame):
         face_count = 0
@@ -78,7 +81,9 @@ class CameraModel:
                     e["total_count"], e["angry_count"], e["fear_count"], e["neutral_count"],
                     e["sad_count"], e["disgust_count"], e["happy_count"], e["surprise_count"]]
 
-            with open("data/stats.csv", "a", newline='') as file:
+            with open(self.stats_csv, "a", newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow(data)
 
+    def get_stats(self):
+        return pd.read_csv(self.stats_csv)
