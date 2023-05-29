@@ -38,7 +38,6 @@ class CameraModel:
         }
 
     def detect_faces_opencv(self, frame):
-        start = time.time()
         face_count = 0
         (h, w) = frame.shape[:2]
 
@@ -57,7 +56,6 @@ class CameraModel:
                 cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 255, 0), 2)
                 face_count += 1
 
-        print(time.time() - start)
         return Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)), face_count
 
     def to_analyze(self, video_feeds):
@@ -83,3 +81,4 @@ class CameraModel:
             with open("data/stats.csv", "a", newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow(data)
+

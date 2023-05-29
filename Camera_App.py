@@ -19,7 +19,7 @@ if __name__ == "__main__":
         vid.set(cv2.CAP_PROP_FRAME_HEIGHT, view.screen_height / 2)
         vid.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         video_feeds.append(vid)
-    #model.to_analyze(video_feeds=video_feeds)
+
     view.window.update()
     start = time.time()
     while True:
@@ -33,5 +33,7 @@ if __name__ == "__main__":
                 img, face_count = model.detect_faces_opencv(frame)
                 view.update_feeds(img, i)
                 face_count_sum += face_count
+                #model.update_stats_csv()
             view.window.update()
-        view.set_person_sum_label(face_count_sum)
+
+
