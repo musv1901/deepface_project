@@ -16,11 +16,12 @@ if __name__ == "__main__":
     })
     consumer.subscribe(['toUI'])
 
+    start = time.time()
     while True:
-        msg = consumer.poll(1.0)
-        if msg and not view.refresh_stop:
-            print("Message consumed")
+        if len(consumer.assignment()) != 0 and not view.refresh_stop:
+            print("Info message")
             p_list = model.get_db_entries()
             view.refresh_img_wall(p_list)
-            view.start_time = time.time()
+            consumer.consume(1)
+            #view.start_time = time.time()
         view.window.update()

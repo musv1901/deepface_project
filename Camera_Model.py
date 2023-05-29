@@ -1,7 +1,7 @@
+import csv
 import uuid
-
+from datetime import datetime
 import requests
-
 import json
 import time
 from confluent_kafka import Producer
@@ -71,7 +71,15 @@ class CameraModel:
                               callback=delivery_report)
         self.producer.flush()
 
-    def persons_statistics(self):
+    def update_stats_csv(self):
         response = requests.get(self.db.get("return_statistics"), self.db.get("headers"))
 
-        return response.json()["items"]
+        for e in response.json()["items"]:
+            timestamp = datetime.fromtimestamp(time.time(), tz=None)
+            data = [timestamp, e["male_ratio"], e["women_ratio"], e["age_avg"],
+                    e["total_count"], e["angry_count"], e["fear_count"], e["neutral_count"],
+                    e["sad_count"], e["disgust_count"], e["happy_count"], e["surprise_count"]]
+
+            with open("data/stats.csv", "a", newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(data)

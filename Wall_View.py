@@ -45,6 +45,7 @@ class WallView(object):
 
     def refresh_img_wall(self, p_list):
 
+        # destroy all subchild frames (for rebuilding)
         for child in self.image_wall_frame.winfo_children():
             child.destroy()
 
@@ -55,22 +56,21 @@ class WallView(object):
 
         for row, i in enumerate(range(math.ceil(amount / num_images_per_row))):
 
+            # configure row frame
             row_frame = ttk.Frame(self.image_wall_frame, padding=self.image_padding)
             row_frame.grid(row=row, column=0, sticky="ew")
 
             for col in range(num_images_per_row):
+                # configure column frame
                 frame = ttk.Frame(row_frame, padding=self.image_padding)
                 style = ttk.Style()
-
                 style.configure("MyFrame.TFrame", borderwidth=3, relief="solid")
                 frame.configure(style="MyFrame.TFrame")
                 frame.grid(row=0, column=col, sticky="nsew")
                 frame.columnconfigure(0, weight=1)
                 frame.rowconfigure(0, weight=1)
 
-                img_label = ttk.Label(frame)
-                img_label.grid(row=0, column=0, sticky="nsew")
-
+                # configure entry (for insert name)
                 entry_name = ttk.Entry(frame, font=("Segoe UI", 16))
                 if not p_list[count]["name"]:
                     entry_name.insert(0, "Enter a name")
@@ -83,6 +83,7 @@ class WallView(object):
                                                                                                               person))
                 entry_name.grid(row=1, column=0, sticky="nsew")
 
+                # configure text labels (age, gender, emotion)
                 text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Segoe UI", 16))
                 text_label_age.grid(row=2, column=0, sticky="nsew")
 
@@ -92,8 +93,13 @@ class WallView(object):
                 text_label_emotion = ttk.Label(frame, text=p_list[count]["emotion"], font=("Segoe UI", 16))
                 text_label_emotion.grid(row=4, column=0, sticky="nsew")
 
+                # configure img frame
                 img = base64_to_rgb(p_list[count]["cropped_img"], "PIL")
                 img_tk = ImageTk.PhotoImage(img)
+                img_label = ttk.Label(frame)
+                img_label.bind("<Button-1>",
+                               lambda event, person=p_list[count]: self.on_img_click(person))
+                img_label.grid(row=0, column=0, sticky="nsew")
                 img_label.configure(image=img_tk)
                 img_label.image = img_tk
 
@@ -110,16 +116,21 @@ class WallView(object):
             event.widget.delete(0, "end")
 
     def on_entry_focus_out(self, entry, person):
-        if entry.get() == "":
-            entry.insert(0, "Enter a name")
-        else:
-            p_id = person["id"]
-            p_name = entry.get()
-            entry.config(state="disabled")
-            self.model.insert_name_db(p_id, p_name)
-            self.start_time = time.time()
+        if str(entry.cget("state")) != "disabled":
+            if entry.get() == "":
+                entry.insert(0, "Enter a name")
+            else:
+                p_id = person["id"]
+                p_name = entry.get()
+                entry.config(state="disabled")
+                self.model.insert_name_db(p_id, p_name)
+                self.start_time = time.time()
 
         self.refresh_stop = False
+
+    def on_img_click(self, person):
+        popup_window = tk.Toplevel()
+        #popup_window.
 
     def set_focus(self, event):
         event.widget.focus_set()
