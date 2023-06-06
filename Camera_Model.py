@@ -27,7 +27,7 @@ class CameraModel:
         modelFile = "Models/res10_300x300_ssd_iter_140000.caffemodel"
         self.net = cv2.dnn.readNetFromCaffe(protoFile, modelFile)
 
-        # self.producer = Producer({'bootstrap.servers': '192.168.70.40:9092'})
+        self.producer = Producer({'bootstrap.servers': '192.168.70.40:9092'})
 
         self.db = {
             "return_statistics": "https://gc7da7be5da2e70-g833jueqvvi5nhsa.adb.eu-frankfurt-1.oraclecloudapps.com"
