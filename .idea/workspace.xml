@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0afe18ce-cfe6-42af-8966-dfd4c2ea38af" name="Changes" comment="commit">
+    <list default="true" id="0afe18ce-cfe6-42af-8966-dfd4c2ea38af" name="Changes" comment="added stats plots (camera view)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Camera_App.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera_App.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Camera_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera_Model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Camera_View.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera_View.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/stats.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/stats.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,22 +37,82 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2OYyBE7bPonhwO11bgMrQlLS479" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sven/PycharmProjects/deepface_project&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Sven\PycharmProjects\deepface_project\Pictures\480_620_cropped" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sven\PycharmProjects\deepface_project\Models" />
+      <recent name="C:\Users\Sven\PycharmProjects\deepface_project\oracle" />
+      <recent name="C:\Users\Sven\PycharmProjects\deepface_project\db" />
+      <recent name="C:\Users\Sven\PycharmProjects\deepface_project\json" />
+      <recent name="C:\Users\Sven\PycharmProjects\deepface_project\Pictures\480_620_cropped" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.Camera_App">
+    <configuration name="Application (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="deepface_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Application.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Camera_App" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="deepface_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Camera_App.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Model" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="deepface_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -62,7 +125,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Sven\PycharmProjects\deepface_project\Model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -71,6 +134,81 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Wall_App" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="deepface_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Wall_App.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plts" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="deepface_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plts.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="stats_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="deepface_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/stats_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Camera_App" />
+        <item itemvalue="Python.plts" />
+        <item itemvalue="Python.Application (1)" />
+        <item itemvalue="Python.stats_test" />
+        <item itemvalue="Python.Wall_App" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -86,7 +224,79 @@
       <workItem from="1682022119150" duration="2145000" />
       <workItem from="1682200598361" duration="1113000" />
       <workItem from="1682256331005" duration="1466000" />
-      <workItem from="1682267888669" duration="680000" />
+      <workItem from="1682267888669" duration="9682000" />
+      <workItem from="1682580472591" duration="2047000" />
+      <workItem from="1682614659526" duration="1914000" />
+      <workItem from="1682620422172" duration="73000" />
+      <workItem from="1682621937244" duration="4191000" />
+      <workItem from="1682627618153" duration="2613000" />
+      <workItem from="1682671533866" duration="858000" />
+      <workItem from="1682962951114" duration="4769000" />
+      <workItem from="1683049419014" duration="3805000" />
+      <workItem from="1683120683933" duration="5500000" />
+      <workItem from="1683131453597" duration="5641000" />
+      <workItem from="1683137585298" duration="8185000" />
+      <workItem from="1683193071676" duration="1972000" />
+      <workItem from="1683195874976" duration="1685000" />
+      <workItem from="1683197588933" duration="802000" />
+      <workItem from="1683199327522" duration="826000" />
+      <workItem from="1683202577183" duration="6350000" />
+      <workItem from="1683214967035" duration="5622000" />
+      <workItem from="1683222714205" duration="16063000" />
+      <workItem from="1683271251660" duration="3221000" />
+      <workItem from="1683274503552" duration="829000" />
+      <workItem from="1683275356142" duration="3039000" />
+      <workItem from="1683301251132" duration="78000" />
+      <workItem from="1683447694531" duration="7561000" />
+      <workItem from="1683475424101" duration="4649000" />
+      <workItem from="1683480271895" duration="776000" />
+      <workItem from="1683483095333" duration="2382000" />
+      <workItem from="1683560442706" duration="1028000" />
+      <workItem from="1683571433900" duration="1711000" />
+      <workItem from="1683616000150" duration="515000" />
+      <workItem from="1683617261115" duration="352000" />
+      <workItem from="1683721310229" duration="146000" />
+      <workItem from="1683742325148" duration="228000" />
+      <workItem from="1683742671088" duration="531000" />
+      <workItem from="1683745842585" duration="1856000" />
+      <workItem from="1683828693945" duration="113000" />
+      <workItem from="1683832806279" duration="351000" />
+      <workItem from="1683904624745" duration="544000" />
+      <workItem from="1683909194710" duration="349000" />
+      <workItem from="1683916269381" duration="14000" />
+      <workItem from="1683927511079" duration="265000" />
+      <workItem from="1683928820620" duration="164000" />
+      <workItem from="1683929482468" duration="218000" />
+      <workItem from="1684007465075" duration="2498000" />
+      <workItem from="1684058072258" duration="824000" />
+      <workItem from="1684085800426" duration="3453000" />
+      <workItem from="1684266546033" duration="51000" />
+      <workItem from="1684330564656" duration="2465000" />
+      <workItem from="1684334463721" duration="831000" />
+      <workItem from="1684336624328" duration="3240000" />
+      <workItem from="1684340523974" duration="5887000" />
+      <workItem from="1684347397464" duration="614000" />
+      <workItem from="1684348973678" duration="1156000" />
+      <workItem from="1684358874211" duration="2177000" />
+      <workItem from="1684393185127" duration="8057000" />
+      <workItem from="1684405173971" duration="1422000" />
+      <workItem from="1684423917453" duration="8229000" />
+      <workItem from="1684439701899" duration="3000" />
+      <workItem from="1684439717431" duration="11000" />
+      <workItem from="1684492712163" duration="3215000" />
+      <workItem from="1684498739708" duration="2690000" />
+      <workItem from="1684509732383" duration="1522000" />
+      <workItem from="1684614696654" duration="2732000" />
+      <workItem from="1684618367602" duration="1536000" />
+      <workItem from="1684620187487" duration="1326000" />
+      <workItem from="1684629306983" duration="441000" />
+      <workItem from="1684669683245" duration="3325000" />
+      <workItem from="1684673470146" duration="592000" />
+      <workItem from="1684694198584" duration="2821000" />
+      <workItem from="1684780395595" duration="89000" />
+      <workItem from="1685356060544" duration="4258000" />
+      <workItem from="1685375939571" duration="5411000" />
+      <workItem from="1685382129163" duration="6755000" />
     </task>
     <task id="LOCAL-00001" summary="first one">
       <created>1681751942401</created>
@@ -165,7 +375,266 @@
       <option name="project" value="LOCAL" />
       <updated>1682257782843</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="commit">
+      <created>1682268849049</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1682268849049</updated>
+    </task>
+    <task id="LOCAL-00013" summary="commit">
+      <created>1682272907885</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1682272907885</updated>
+    </task>
+    <task id="LOCAL-00014" summary="commit">
+      <created>1682277658923</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1682277658923</updated>
+    </task>
+    <task id="LOCAL-00015" summary="multiprocessing">
+      <created>1682582523853</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1682582523853</updated>
+    </task>
+    <task id="LOCAL-00016" summary="kafka">
+      <created>1682627129498</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1682627129498</updated>
+    </task>
+    <task id="LOCAL-00017" summary="stats">
+      <created>1682965874295</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1682965874295</updated>
+    </task>
+    <task id="LOCAL-00018" summary="stats">
+      <created>1683053255367</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1683053255368</updated>
+    </task>
+    <task id="LOCAL-00019" summary="gui">
+      <created>1683127255453</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1683127255453</updated>
+    </task>
+    <task id="LOCAL-00020" summary="gui">
+      <created>1683137278720</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1683137278720</updated>
+    </task>
+    <task id="LOCAL-00021" summary="gui">
+      <created>1683144474454</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1683144474454</updated>
+    </task>
+    <task id="LOCAL-00022" summary="gui">
+      <created>1683195411216</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1683195411216</updated>
+    </task>
+    <task id="LOCAL-00023" summary="gui">
+      <created>1683200152339</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1683200152339</updated>
+    </task>
+    <task id="LOCAL-00024" summary="gui">
+      <created>1683210377536</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1683210377536</updated>
+    </task>
+    <task id="LOCAL-00025" summary="gui">
+      <created>1683220611359</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1683220611359</updated>
+    </task>
+    <task id="LOCAL-00026" summary="gui">
+      <created>1683230550462</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1683230550462</updated>
+    </task>
+    <task id="LOCAL-00027" summary="added MVC pattern">
+      <created>1683239261806</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1683239261806</updated>
+    </task>
+    <task id="LOCAL-00028" summary="added MVC pattern">
+      <created>1683272274500</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1683272274500</updated>
+    </task>
+    <task id="LOCAL-00029" summary="added MVC pattern">
+      <created>1683277149718</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1683277149718</updated>
+    </task>
+    <task id="LOCAL-00030" summary="img_wall">
+      <created>1683452174856</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1683452174856</updated>
+    </task>
+    <task id="LOCAL-00031" summary="img_wall">
+      <created>1683480100513</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1683480100513</updated>
+    </task>
+    <task id="LOCAL-00032" summary="added take_screenshot()">
+      <created>1683485484352</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1683485484352</updated>
+    </task>
+    <task id="LOCAL-00033" summary="changes">
+      <created>1684266586774</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1684266586774</updated>
+    </task>
+    <task id="LOCAL-00034" summary="opencv face detection for web cam">
+      <created>1684331214173</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1684331214173</updated>
+    </task>
+    <task id="LOCAL-00035" summary="new structure">
+      <created>1684345812496</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1684345812496</updated>
+    </task>
+    <task id="LOCAL-00036" summary="changes">
+      <created>1684403902331</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1684403902331</updated>
+    </task>
+    <task id="LOCAL-00037" summary="changes">
+      <created>1684404214698</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1684404214698</updated>
+    </task>
+    <task id="LOCAL-00038" summary="changes">
+      <created>1684425185860</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1684425185860</updated>
+    </task>
+    <task id="LOCAL-00039" summary="changes">
+      <created>1684425874197</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1684425874197</updated>
+    </task>
+    <task id="LOCAL-00040" summary="changes">
+      <created>1684502739037</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1684502739037</updated>
+    </task>
+    <task id="LOCAL-00041" summary="changes">
+      <created>1684511261774</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1684511261774</updated>
+    </task>
+    <task id="LOCAL-00042" summary="changes">
+      <created>1684617897674</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1684617897674</updated>
+    </task>
+    <task id="LOCAL-00043" summary="added insert_name functionality">
+      <created>1684621512063</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1684621512063</updated>
+    </task>
+    <task id="LOCAL-00044" summary="changes">
+      <created>1684629724281</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1684629724281</updated>
+    </task>
+    <task id="LOCAL-00045" summary="changes">
+      <created>1684673018473</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1684673018473</updated>
+    </task>
+    <task id="LOCAL-00046" summary="changes">
+      <created>1684674053994</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1684674053994</updated>
+    </task>
+    <task id="LOCAL-00047" summary="add stats.csv">
+      <created>1685360281429</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1685360281429</updated>
+    </task>
+    <task id="LOCAL-00048" summary="added stats plots (camera view)">
+      <created>1685381374209</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1685381374209</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,10 +657,37 @@
     <MESSAGE value="added persons.json" />
     <MESSAGE value="pushin pppppp" />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="multiprocessing" />
+    <MESSAGE value="kafka" />
+    <MESSAGE value="stats" />
+    <MESSAGE value="gui" />
+    <MESSAGE value="added MVC pattern" />
+    <MESSAGE value="img_wall" />
+    <MESSAGE value="added take_screenshot()" />
+    <MESSAGE value="opencv face detection for web cam" />
+    <MESSAGE value="new structure" />
+    <MESSAGE value="added insert_name functionality" />
+    <MESSAGE value="changes" />
+    <MESSAGE value="add stats.csv" />
+    <MESSAGE value="added stats plots (camera view)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added stats plots (camera view)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/deepface_project$Application.coverage" NAME="Application Coverage Results" MODIFIED="1683617351454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$stream.coverage" NAME="stream Coverage Results" MODIFIED="1683928915431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$YOLO_Test.coverage" NAME="YOLO_Test Coverage Results" MODIFIED="1684088701917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$Controller.coverage" NAME="Controller Coverage Results" MODIFIED="1683230372458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$Camera_App.coverage" NAME="Camera_App Coverage Results" MODIFIED="1685388496875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$stats_test.coverage" NAME="stats_test Coverage Results" MODIFIED="1685376056346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$plts.coverage" NAME="plts Coverage Results" MODIFIED="1685388411205" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$GUI.coverage" NAME="GUI Coverage Results" MODIFIED="1683220594865" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$kafka_test.coverage" NAME="kafka_test Coverage Results" MODIFIED="1683828748629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/deepface_project$deepface_project.coverage" NAME="main Coverage Results" MODIFIED="1681756438536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/deepface_project$main.coverage" NAME="main Coverage Results" MODIFIED="1682257716426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$run.coverage" NAME="Application Coverage Results" MODIFIED="1683239203760" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$Wall_App.coverage" NAME="Wall_App Coverage Results" MODIFIED="1684697002882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$main.coverage" NAME="main Coverage Results" MODIFIED="1683053231430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$kafka.coverage" NAME="kafka Coverage Results" MODIFIED="1683742420941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$Application__1_.coverage" NAME="Application (1) Coverage Results" MODIFIED="1685384155078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/deepface_project$ORACLE_DB.coverage" NAME="ORACLE_DB Coverage Results" MODIFIED="1684060379008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
