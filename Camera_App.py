@@ -38,12 +38,12 @@ if __name__ == "__main__":
         for i, feed in enumerate(video_feeds):
             if int(time.time() - start) > TIME_TO_SCREENSHOT:
                 # model.to_analyze(video_feeds=video_feeds)
-                model.update_stats_csv()
-                update_plots()
+                #model.update_stats_csv()
+                #update_plots()
                 start = time.time()
             ret, frame = feed.read()
             if ret:
                 img, face_count = model.detect_faces_opencv(frame)
                 view.update_feeds(img, i)
-                face_count_sum += face_count
+                #face_count_sum += face_count
             view.window.update()

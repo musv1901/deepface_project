@@ -18,6 +18,7 @@ class CameraView(object):
         self.window = tk.Tk()
         self.window.title("Video Feeds")
         self.window.configure(bg="white")
+        self.window.attributes("-fullscreen", True)
 
         self.canvases = []
 
@@ -40,7 +41,7 @@ class CameraView(object):
     def create_camera_feeds(self):
         for i in range(2):
             canvas = tk.Canvas(self.window, width=self.video_box_width, height=self.video_box_height, bg="white")
-            canvas.grid(row=0, column=i)
+            canvas.pack(side="left", anchor="nw")
             self.canvases.append(canvas)
 
     def update_feeds(self, frame, i):
@@ -55,7 +56,7 @@ class CameraView(object):
         self.stats_canvas = tk.Canvas(self.window, width=self.screen_width,
                                       height=self.screen_height - self.video_box_height, bg="white", borderwidth=0,
                                       highlightthickness=0)
-        self.stats_canvas.grid(row=1, column=0, columnspan=2)
+        self.stats_canvas.pack(side="bottom", anchor="sw")
 
     def create_plots(self):
         figure1 = Figure(figsize=(6, 4), dpi=100)
@@ -73,9 +74,9 @@ class CameraView(object):
         self.plot_canvas2 = FigureCanvasTkAgg(figure2, master=self.stats_canvas)
         self.plot_canvas3 = FigureCanvasTkAgg(figure3, master=self.stats_canvas)
 
-        self.plot_canvas1.get_tk_widget().grid(row=0, column=0, padx=10, pady=10)
-        self.plot_canvas2.get_tk_widget().grid(row=0, column=1, padx=10, pady=10)
-        self.plot_canvas3.get_tk_widget().grid(row=0, column=2, padx=10, pady=10)
+        self.plot_canvas1.get_tk_widget().pack(side="left")
+        self.plot_canvas2.get_tk_widget().pack(side="left")
+        self.plot_canvas3.get_tk_widget().pack(side="left")
 
     def update_gender_plot(self, data):
         self.ax1.clear()
