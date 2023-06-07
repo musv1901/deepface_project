@@ -14,14 +14,13 @@ if __name__ == "__main__":
         'group.id': 'py',
         'auto.offset.reset': 'earliest'
     })
-    consumer.subscribe(['toUI'])
+    consumer.subscribe(['update_wall'])
 
     start = time.time()
     while True:
-        if len(consumer.assignment()) != 0 and not view.refresh_stop:
-            print("Info message")
+        if time.time() - start > 5 and not view.refresh_stop:
             p_list = model.get_db_entries()
             view.refresh_img_wall(p_list)
-            consumer.consume(1)
+            start = time.time()
             #view.start_time = time.time()
         view.window.update()
