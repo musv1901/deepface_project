@@ -40,7 +40,7 @@ if __name__ == "__main__":
                 # model.to_analyze(video_feeds=video_feeds)
                 #model.update_stats_csv()
                 #update_plots()
-                model.to_analyze(video_feeds)
+                #model.to_analyze(video_feeds)
                 start = time.time()
             ret, frame = feed.read()
             if ret:

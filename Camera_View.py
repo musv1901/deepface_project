@@ -59,24 +59,34 @@ class CameraView(object):
         self.stats_canvas.pack(side="bottom", anchor="sw")
 
     def create_plots(self):
-        figure1 = Figure(figsize=(6, 4), dpi=100)
-        self.ax1 = figure1.add_subplot(111)
-        figure2 = Figure(figsize=(6, 4), dpi=100)
-        self.ax2 = figure2.add_subplot(111)
-        figure3 = Figure(figsize=(6, 4), dpi=100)
-        self.ax3 = figure3.add_subplot(111)
+        # figure1 = Figure(figsize=(6, 4), dpi=100)
+        # self.ax1 = figure1.add_subplot(111)
+        # figure2 = Figure(figsize=(6, 4), dpi=100)
+        # self.ax2 = figure2.add_subplot(111)
+        # figure3 = Figure(figsize=(6, 4), dpi=100)
+        # self.ax3 = figure3.add_subplot(111)
+        #
+        # figure1.tight_layout()
+        # figure2.tight_layout()
+        # figure3.tight_layout()
+        #
+        # self.plot_canvas1 = FigureCanvasTkAgg(figure1, master=self.stats_canvas)
+        # self.plot_canvas2 = FigureCanvasTkAgg(figure2, master=self.stats_canvas)
+        # self.plot_canvas3 = FigureCanvasTkAgg(figure3, master=self.stats_canvas)
+        #
+        # self.plot_canvas1.get_tk_widget().pack(side="left")
+        # self.plot_canvas2.get_tk_widget().pack(side="left")
+        # self.plot_canvas3.get_tk_widget().pack(side="left")
 
-        figure1.tight_layout()
-        figure2.tight_layout()
-        figure3.tight_layout()
+        figure = Figure(figsize=(18, 4), dpi=100)
+        self.ax1 = figure.add_subplot(131)
+        self.ax2 = figure.add_subplot(132)
+        self.ax3 = figure.add_subplot(133)
+        figure.tight_layout()
 
-        self.plot_canvas1 = FigureCanvasTkAgg(figure1, master=self.stats_canvas)
-        self.plot_canvas2 = FigureCanvasTkAgg(figure2, master=self.stats_canvas)
-        self.plot_canvas3 = FigureCanvasTkAgg(figure3, master=self.stats_canvas)
+        self.plot_canvas = FigureCanvasTkAgg(figure, master=self.stats_canvas)
 
-        self.plot_canvas1.get_tk_widget().pack(side="left")
-        self.plot_canvas2.get_tk_widget().pack(side="left")
-        self.plot_canvas3.get_tk_widget().pack(side="left")
+        self.plot_canvas.get_tk_widget().pack()
 
     def update_gender_plot(self, data):
         self.ax1.clear()
