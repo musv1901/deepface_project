@@ -38,9 +38,9 @@ if __name__ == "__main__":
         for i, feed in enumerate(video_feeds):
             if int(time.time() - start) > TIME_TO_SCREENSHOT:
                 # model.to_analyze(video_feeds=video_feeds)
-                #model.update_stats_csv()
-                #update_plots()
-                #model.to_analyze(video_feeds)
+                model.update_stats_csv()
+                update_plots()
+                model.to_analyze(video_feeds)
                 start = time.time()
             ret, frame = feed.read()
             if ret:
