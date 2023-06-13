@@ -87,10 +87,10 @@ class WallView(object):
                 text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Segoe UI", 16))
                 text_label_age.grid(row=2, column=0, sticky="nsew")
 
-                text_label_gender = ttk.Label(frame, text=p_list[count]["gender"], font=("Segoe UI", 16))
+                text_label_gender = ttk.Label(frame, text='Gender: ' + p_list[count]["gender"], font=("Segoe UI", 16))
                 text_label_gender.grid(row=3, column=0, sticky="nsew")
 
-                text_label_emotion = ttk.Label(frame, text=p_list[count]["emotion"], font=("Segoe UI", 16))
+                text_label_emotion = ttk.Label(frame, text='Emotion: ' + p_list[count]["emotion"], font=("Segoe UI", 16))
                 text_label_emotion.grid(row=4, column=0, sticky="nsew")
 
                 # configure img frame
@@ -130,7 +130,7 @@ class WallView(object):
 
     def on_img_click(self, person):
         popup_window = tk.Toplevel()
-        #popup_window.
+        # popup_window.
 
     def set_focus(self, event):
         event.widget.focus_set()

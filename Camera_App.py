@@ -13,12 +13,13 @@ def update_plots():
 
     view.update_gender_plot([latest_data["male_ratio"], latest_data["women_ratio"]])
     view.update_age_plot([history_data["time"], history_data["age_avg"]])
+    view.update_persons_count_plot([history_data["time"], history_data['total_count']])
 
 
 if __name__ == "__main__":
     view = CameraView()
     model = CameraModel()
-
+    face_count = 0
     video_sources = [0, 0]
     video_feeds = []
 
@@ -38,10 +39,16 @@ if __name__ == "__main__":
         for i, feed in enumerate(video_feeds):
             if int(time.time() - start) > TIME_TO_SCREENSHOT:
                 # model.to_analyze(video_feeds=video_feeds)
-                model.update_stats_csv()
-                update_plots()
+
                 model.to_analyze(video_feeds)
+                try:
+                    model.update_stats_csv()  #wenn db leer, auskommentieren!
+                except Exception as e:
+                    print(e)
+                    continue
+                update_plots()
                 start = time.time()
+
             ret, frame = feed.read()
             if ret:
                 img, face_count = model.detect_faces_opencv(frame)

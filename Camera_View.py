@@ -6,6 +6,9 @@ import matplotlib.dates as mdates
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
+
+
+
 class CameraView(object):
 
     def __init__(self):
@@ -104,20 +107,28 @@ class CameraView(object):
 
         self.ax1.pie(data, radius=1, labels=categories, autopct='%1.1f%%',
                      pctdistance=1.25, labeldistance=.4, textprops={'fontsize': 16})
-
+        self.ax1.set_title('Man / Women Share')
         self.ax1.set_aspect('equal')
         self.plot_canvas.draw()
 
     def update_age_plot(self, data):
         self.ax2.clear()
 
-        self.ax2.plot(data[0], data[1], linestyle='-')
+        self.ax2.plot(data[0], data[1], linestyle='--', linewidth='2', color='blue')
         self.ax2.set_xlabel('Timestamp')
         self.ax2.set_ylabel('Age')
         self.ax2.set_ylim(0, 80)
-        self.ax2.set_title('Age Graph')
+        self.ax2.set_title('Average Age in the room')
         self.ax2.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
         self.ax2.tick_params(axis='x', rotation=45)
+        self.plot_canvas.draw()
+
+    def update_persons_count_plot(self, data):
+        self.ax3.set_title('Amount of persons in the room')
+        self.ax3.set_xlabel('Time')
+        self.ax3.set_ylabel('Amount of people')
+        self.ax3.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+        self.ax3.plot(data[0], data[1], linestyle='--', linewidth='2', color='green')
         self.plot_canvas.draw()
 
     def run(self):
