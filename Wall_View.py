@@ -12,7 +12,7 @@ class WallView(object):
     def __init__(self, model):
         self.model = model
         self.image_width = 240
-        self.image_padding = 10
+        self.image_padding = 7
         self.start_time = time.time()
 
         self.refresh_stop = False
@@ -54,21 +54,21 @@ class WallView(object):
 
         num_images_per_row = self.screen_width // (self.image_width + self.image_padding)
 
+        style = ttk.Style()
+        style.configure("MyFrame.TFrame", borderwidth=3, relief="solid")
+        style.configure("MyFrame_Green.TFrame", borderwidth=3, relief="solid", bordercolor="green")
+
         for row, i in enumerate(range(math.ceil(amount / num_images_per_row))):
 
             # configure row frame
             row_frame = ttk.Frame(self.image_wall_frame, padding=self.image_padding)
-            row_frame.grid(row=row, column=0, sticky="ew")
+            row_frame.pack(fill="x")
 
             for col in range(num_images_per_row):
                 # configure column frame
                 frame = ttk.Frame(row_frame, padding=self.image_padding)
-                style = ttk.Style()
-                style.configure("MyFrame.TFrame", borderwidth=3, relief="solid")
                 frame.configure(style="MyFrame.TFrame")
-                frame.grid(row=0, column=col, sticky="nsew")
-                frame.columnconfigure(0, weight=1)
-                frame.rowconfigure(0, weight=1)
+                frame.pack(side="left", padx=self.image_padding, pady=self.image_padding)
 
                 # configure entry (for insert name)
                 entry_name = ttk.Entry(frame, font=("Segoe UI", 16))
@@ -81,27 +81,41 @@ class WallView(object):
                 entry_name.bind("<FocusOut>",
                                 lambda event, entry=entry_name, person=p_list[count]: self.on_entry_focus_out(entry,
                                                                                                               person))
-                entry_name.grid(row=1, column=0, sticky="nsew")
+                entry_name.pack(fill="x")
 
                 # configure text labels (age, gender, emotion)
                 text_label_age = ttk.Label(frame, text="Age: " + str(p_list[count]["age"]), font=("Segoe UI", 16))
-                text_label_age.grid(row=2, column=0, sticky="nsew")
+                text_label_age.pack(fill="x")
 
                 text_label_gender = ttk.Label(frame, text='Gender: ' + p_list[count]["gender"], font=("Segoe UI", 16))
-                text_label_gender.grid(row=3, column=0, sticky="nsew")
+                text_label_gender.pack(fill="x")
 
-                text_label_emotion = ttk.Label(frame, text='Emotion: ' + p_list[count]["emotion"], font=("Segoe UI", 16))
-                text_label_emotion.grid(row=4, column=0, sticky="nsew")
+                text_label_emotion = ttk.Label(frame, text='Emotion: ' + p_list[count]["emotion"],
+                                               font=("Segoe UI", 16))
+                text_label_emotion.pack(fill="x")
 
                 # configure img frame
                 img = base64_to_rgb(p_list[count]["cropped_img"], "PIL")
                 img_tk = ImageTk.PhotoImage(img)
-                img_label = ttk.Label(frame)
-                img_label.bind("<Button-1>",
-                               lambda event, person=p_list[count]: self.on_img_click(person))
-                img_label.grid(row=0, column=0, sticky="nsew")
+                img_label = tk.Label(frame)
+                img_label.pack(fill="both", expand=True)
                 img_label.configure(image=img_tk)
                 img_label.image = img_tk
+
+                # configure marked border
+                is_marked = 0
+                if p_list[count]["is_marked"] == 'True':
+                    img_label.configure(highlightthickness=5, highlightbackground="green")
+                    is_marked = 1
+                img_label.bind("<Button-1>",
+                               lambda event, person=p_list[count], is_marked=is_marked,
+                                      img=img_label: self.on_img_click(person, is_marked, img))
+
+                # configure delete btn
+                delete_btn = ttk.Button(frame, text="X")
+                delete_btn.bind("<Button-1>",
+                                lambda event, frame=frame, person=p_list[count]: self.on_delete_click(frame, person))
+                delete_btn.pack(fill="x")
 
                 count += 1
                 if count == amount:
@@ -128,9 +142,29 @@ class WallView(object):
 
         self.refresh_stop = False
 
-    def on_img_click(self, person):
-        popup_window = tk.Toplevel()
-        # popup_window.
+    def on_img_click(self, person, is_marked, frame):
+        self.refresh_stop = True
+        p_id = person["id"]
+
+        if is_marked == 0:
+            self.model.mark_person_db(p_id)
+            frame.configure(highlightthickness=5, highlightbackground="green")
+        else:
+            self.model.unmark_person_db(p_id)
+            frame.configure(highlightthickness=0)
+
+        time.sleep(1)
+        self.refresh_stop = False
+
+    def on_delete_click(self, frame, person):
+        self.refresh_stop = True
+        p_id = person["id"]
+        frame.pack_forget()
+        frame.destroy()
+
+        self.model.delete_person(p_id)
+        time.sleep(1)
+        self.refresh_stop = False
 
     def set_focus(self, event):
         event.widget.focus_set()

@@ -38,15 +38,14 @@ if __name__ == "__main__":
         face_count_sum = 0
         for i, feed in enumerate(video_feeds):
             if int(time.time() - start) > TIME_TO_SCREENSHOT:
-                # model.to_analyze(video_feeds=video_feeds)
-
                 model.to_analyze(video_feeds)
                 try:
                     model.update_stats_csv()  #wenn db leer, auskommentieren!
+                    update_plots()
                 except Exception as e:
+                    start = time.time()
                     print(e)
                     continue
-                update_plots()
                 start = time.time()
 
             ret, frame = feed.read()
