@@ -12,7 +12,7 @@ class WallView(object):
     def __init__(self, model):
         self.model = model
         self.image_width = 240
-        self.image_padding = 7
+        self.image_padding = 2
         self.start_time = time.time()
 
         self.refresh_stop = False
@@ -52,7 +52,7 @@ class WallView(object):
         amount = len(p_list)
         count = 0
 
-        num_images_per_row = self.screen_width // (self.image_width + self.image_padding)
+        num_images_per_row = (self.screen_width // (self.image_width + self.image_padding))-1
 
         style = ttk.Style()
         style.configure("MyFrame.TFrame", borderwidth=3, relief="solid")
