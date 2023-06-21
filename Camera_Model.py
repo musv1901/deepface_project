@@ -30,8 +30,7 @@ class CameraModel:
         self.producer = Producer({'bootstrap.servers': '192.168.70.40:9092'})
 
         self.db = {
-            "return_statistics": "https://gc7da7be5da2e70-g833jueqvvi5nhsa.adb.eu-frankfurt-1.oraclecloudapps.com"
-                                 "/ords/admin/operations/return_statistics",
+            "return_statistics": "https://gc7da7be5da2e70-g833jueqvvi5nhsa.adb.eu-frankfurt-1.oraclecloudapps.com/ords/admin/operations/return_statistics",
             "headers": {
                 "Content-type": "application/json",
                 "Accept": "application/json"
