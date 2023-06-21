@@ -40,7 +40,10 @@ if __name__ == "__main__":
             if int(time.time() - start) > TIME_TO_SCREENSHOT:
                 model.to_analyze(video_feeds)
                 try:
+                    update_plots()
+                    print('before update_csv')
                     model.update_stats_csv()  #wenn db leer, auskommentieren!
+                    print('before update_plots')
                     update_plots()
                 except Exception as e:
                     start = time.time()
