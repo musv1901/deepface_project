@@ -40,7 +40,7 @@ class CameraModel:
         self.stats_csv = "data/stats.csv"
 
     def detect_faces_opencv(self, frame):
-        frame = cv2.resize(frame, (640, 480))
+        #frame = cv2.resize(frame, (640, 480))
         face_count = 0
         (h, w) = frame.shape[:2]
 
@@ -62,15 +62,19 @@ class CameraModel:
         return Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)), face_count
 
     def to_analyze(self, video_feeds):
-        screenshots = {"screens": []}
+        #screenshots = {"screens": []}
 
         for screen in video_feeds:
             base64 = rgb2base64(screen.read()[1], "JPEG")
-            screenshots["screens"].append(base64)
+            self.producer.produce(topic="toAnalyze", key=str(uuid.uuid4()), value=base64,
+                                  callback=delivery_report)
+            self.producer.flush()
 
-        self.producer.produce(topic="toAnalyze", key=str(uuid.uuid4()), value=json.dumps(screenshots),
-                              callback=delivery_report)
-        self.producer.flush()
+            #screenshots["screens"].append(base64)
+
+        #self.producer.produce(topic="toAnalyze", key=str(uuid.uuid4()), value=json.dumps(screenshots),
+                              #callback=delivery_report)
+        #self.producer.flush()
 
     def update_stats_csv(self):
         response = requests.get(self.db.get("return_statistics"), self.db.get("headers"))
