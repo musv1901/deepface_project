@@ -52,7 +52,7 @@ class WallView(object):
         amount = len(p_list)
         count = 0
 
-        num_images_per_row = (self.screen_width // (self.image_width + self.image_padding))-1
+        num_images_per_row = (self.screen_width // (self.image_width + self.image_padding))
 
         style = ttk.Style()
         style.configure("MyFrame.TFrame", borderwidth=3, relief="solid")

@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     start = time.time()
     while True:
-        if time.time() - start > 20 and not view.refresh_stop:
+        if time.time() - start > 10 and not view.refresh_stop:
             p_list = model.get_db_entries()
             view.refresh_img_wall(p_list)
             start = time.time()

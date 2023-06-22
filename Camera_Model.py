@@ -40,6 +40,7 @@ class CameraModel:
         self.stats_csv = "data/stats.csv"
 
     def detect_faces_opencv(self, frame):
+        frame = cv2.resize(frame, (640, 480))
         face_count = 0
         (h, w) = frame.shape[:2]
 
